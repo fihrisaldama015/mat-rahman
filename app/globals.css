@@ -1,0 +1,304 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+html,
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0;
+  margin: 0;
+}
+html{
+  --bg: #fefefe;
+  --color:#222;
+  --grey: #ddd;
+}
+html[data-theme=dark] {
+  --bg: #000d;
+  --color: #fefefe;
+  --grey: #333;
+}
+body {
+  background-color: var(--bg);
+}
+
+.hero {
+  margin: 0;
+  padding: 2rem;
+  color: var(--color);
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hero p {
+  color: var(--color);
+}
+
+nav {
+  background-color: black;
+  color: white;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul.menu {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.menu > li {
+  display: flex;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.25rem;
+  transition: all 0.2s;
+}
+
+li > a {
+  color: white;
+}
+
+li {
+  color: white;
+}
+
+.menu > li:hover {
+  background-color: #fff4;
+  cursor: pointer;
+}
+
+.profile {
+  background-color: white;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  position: relative;
+}
+.profile:hover {
+  background-color: #fffa;
+}
+ul,
+li {
+  list-style: none;
+}
+
+.hilang{
+  transition: all 0.2s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.dropdown {
+  transition: all 0.2s ease-in-out;
+  background-color: white;
+  color: black;
+  position: absolute;
+  top: 0;
+  right: -1rem;
+  width: 15rem;
+  margin-top: 3.75rem;
+  border-radius: .5rem;
+}
+
+.dropdown > .dropdown-menu {
+  padding: 1rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: .5rem;
+  position: relative;
+}
+
+.dropdown > .dropdown-menu::before{
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 85%;
+  height: 2px;
+  border-bottom: 2px solid #0003;
+}
+
+.dropdown > .dropdown-menu:hover{
+  background-color: #0001;
+  cursor: pointer;
+}
+
+#setting-button:hover {
+  cursor: pointer;
+}
+
+.pilih-bahasa {
+  position: absolute;
+  top: calc(50%);
+  left: 50%;
+  background-color: var(--grey);
+  color: var(--color);
+  box-shadow: 2px 2px 5px #0004;
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+#close-bahasa {
+  position: absolute;
+  right: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+#close-bahasa:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+  transition: all 0.2s ease-in-out;
+}
+
+.bahasa {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  border-radius: 0.5rem;
+  padding: 0 0.5rem;
+}
+
+.bahasa:hover {
+  cursor: pointer;
+  background-color: #0002;
+}
+
+.invers {
+  filter: invert(1);
+}
+
+.hero-banner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: url('/background-signup.jpg') no-repeat center center/cover;
+  width: 100%;
+  min-height: 30vh;
+  color: white;
+}
+
+.input {
+  display: flex;
+  width: 100%;
+  padding: .5rem 1rem;
+  border-radius: .5rem;
+  border: 1px solid var(--grey);
+  background-color: var(--bg);
+  color: var(--color);
+}
+
+.input:focus {
+  outline: none;
+  border: 1px solid var(--color);
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form > button {
+  padding: .5rem 1rem;
+  border-radius: .5rem;
+  border: none;
+  background-color: blue;
+  color: white;
+  font-weight: bold;
+  transition: all 0.2s ease-in-out;
+}
+
+.form > button:hover{
+  cursor: pointer;
+  background-color: #007;
+  transition: all 0.2s ease-in-out;
+}
+
+/* ------------- SLIDER ------------- */
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 21px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 13px;
+  width: 13px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
