@@ -19,12 +19,56 @@ const SimulasiPage = () => {
       </div>
 
       <div className="flex justify-center gap-16 flex-wrap p-16">
-        <Card variant={"blue"} />
-        <Card variant={"purple"} />
-        <Card variant={"green"} />
-        <Card variant={"red"} />
-        <Card variant={"yellow"} />
-        <Card variant={"cyan"} />
+        <Card
+          id="operasi_hitung"
+          variant={"blue"}
+          title="Operasi Hitung Aljabar"
+          penjelasan="Menentukan hasil operasi penjumlahan dan pengurangan aljabar dengan menggunakan blok aljabar"
+        />
+        {/* menentukan hasil operasi aljabar dengan menggunakan blok aljabar */}
+        <Card
+          id="perkalian_suku"
+          variant={"purple"}
+          title="Perkalian Dua Suku"
+          penjelasan="Menentukan hasil perkalian suku dua dan suku dua menggunakan blok Aljabar"
+        />
+        {/* menentukan hasil perkalian suku dua dan suku dua */}
+        <Card
+          variant={"green"}
+          title="Faktorisasi Persamaan Kuadrat"
+          penjelasan={`Persamaan Kuadrat :`}
+          rumus={"Ax^2 + Bx + C$ dengan syarat $A = 1$, $B & C$ positif"}
+          id="faktorisasi_persamaan_kuadrat_1"
+        />
+        {/* a=1, b & c positif */}
+        <Card
+          variant={"red"}
+          title="Faktorisasi Persamaan Kuadrat"
+          penjelasan={`Persamaan Kuadrat :`}
+          rumus={
+            "Ax^2 + Bx + C$ dengan syarat $A = 1$, $B & C$ positif atau negatif"
+          }
+          id="faktorisasi_persamaan_kuadrat_2"
+        />
+        {/* a=1, b & c positif/negatif */}
+        <Card
+          variant={"yellow"}
+          title="Faktorisasi Persamaan Kuadrat"
+          penjelasan={`Persamaan Kuadrat :`}
+          rumus={"Ax^2 + Bx + C$ dengan syarat $A > 1$, $B & C$ positif"}
+          id="faktorisasi_persamaan_kuadrat_3"
+        />
+        {/* a>1, b & c positif */}
+        <Card
+          variant={"cyan"}
+          title="Faktorisasi Persamaan Kuadrat"
+          penjelasan={`Persamaan Kuadrat :`}
+          rumus={
+            "Ax^2 + Bx + C$ dengan syarat $A > 1$, $B & C$ positif atau negatif"
+          }
+          id="faktorisasi_persamaan_kuadrat_4"
+        />
+        {/* a>1, b & c positif/negatif */}
       </div>
     </div>
   );

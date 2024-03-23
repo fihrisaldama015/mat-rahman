@@ -1,7 +1,10 @@
+"use client";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
+import Latex from "react-latex-next";
 
-const Card = ({ variant }) => {
+const Card = ({ variant, title, penjelasan, rumus, id }) => {
   const color =
     variant == "blue"
       ? "bg-blue-500"
@@ -12,7 +15,7 @@ const Card = ({ variant }) => {
       : variant == "purple"
       ? "bg-purple-500"
       : variant == "yellow"
-      ? "bg-yellow-500"
+      ? "bg-orange-500"
       : variant == "cyan"
       ? "bg-cyan-500"
       : "";
@@ -27,12 +30,12 @@ const Card = ({ variant }) => {
       : variant == "purple"
       ? "text-purple-500"
       : variant == "yellow"
-      ? "text-yellow-500"
+      ? "text-orange-500"
       : variant == "cyan"
       ? "text-cyan-500"
       : "";
   return (
-    <div className={`flex flex-col w-80 rounded-xl ${color}`}>
+    <div className={`relative pb-16 flex flex-col w-80 rounded-xl ${color}`}>
       <Image
         src={"/bg_dashboard.jpg"}
         alt="card"
@@ -42,17 +45,21 @@ const Card = ({ variant }) => {
       />
 
       <div className="p-8 text-white">
-        <h1 className="text-lg font-bold">Garis Waktu Matematika</h1>
+        <h1 className="text-lg font-bold text-center">{title}</h1>
         <p className="text-justify mt-6">
-          Jelajahi waktu dan jelajahi ahli matematika terbesar dan penemuan
-          matematika terbesar dalam sejarah.
+          {penjelasan}
+          <br />
+          {rumus && <Latex>${rumus}</Latex>}
         </p>
       </div>
-      <button
-        className={`mb-4 mt-8 px-8 py-2 bg-white ${textColor} rounded-full hover:scale-110 transition-all mx-auto font-semibold`}
-      >
-        Bermain
-      </button>
+
+      <Link href={`/simulasi/${id}`}>
+        <button
+          className={`mb-4 mt-8 absolute left-1/2 -translate-x-1/2 bottom-0 px-8 py-2 bg-white ${textColor} rounded-full hover:scale-110 transition-all mx-auto font-semibold`}
+        >
+          Bermain
+        </button>
+      </Link>
     </div>
   );
 };

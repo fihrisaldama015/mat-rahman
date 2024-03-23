@@ -20,13 +20,14 @@ const Navbar = () => {
 
   const changeTheme = (checked) => {
     setTheme(checked ? "dark" : "light");
+    themeToggle();
   };
 
-  useEffect(() => {
-    if (theme !== "") {
-      themeToggle();
-    }
-  }, [theme]);
+  // useEffect(() => {
+  //   if (theme !== "") {
+  //     themeToggle();
+  //   }
+  // }, [theme]);
   return (
     <>
       <nav>
