@@ -1,17 +1,13 @@
-import React, {useEffect} from "react";
-import Kotak from "./Kotak";
 import { useDrag } from "react-dnd";
-import {getEmptyImage} from "react-dnd-html5-backend";
+import Kotak from "./Kotak";
 
-const getStyles = (left, top, width, height, isDragging) => {
+const getStyles = (left, top, isDragging) => {
   const transform = `translate3d(${left}px, ${top}px, 0)`;
   return {
     position: "absolute",
     transform,
     WebkitTransform: transform,
-    width,
-    height,
-    opacity: isDragging ? 0 : 1,
+    opacity: isDragging ? 0.2 : 1,
   };
 };
 
@@ -31,8 +27,9 @@ const KotakSoal = (props) => {
 
   return (
     <div
-        ref={drag}
-        style={getStyles(left, top, 100, 100, collected.isDragging)}
+      ref={drag}
+      style={getStyles(left, top, collected.isDragging)}
+      className="transition-all duration-1000"
     >
       <Kotak title={title} />
     </div>

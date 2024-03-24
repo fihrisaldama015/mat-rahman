@@ -8,7 +8,7 @@ const Operasi_Hitung_Page = () => {
   const [snapToGridAfterDrop, setSnapToGridAfterDrop] = useState(true);
   return (
     <DndProvider backend={HTML5Backend}>
-      <Playground isSnapToGrid={setSnapToGridAfterDrop} />
+      <Playground isSnapToGrid={snapToGridAfterDrop} />
     </DndProvider>
   );
 };

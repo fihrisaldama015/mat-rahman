@@ -2,7 +2,7 @@ import React from "react";
 import Latex from "react-latex-next";
 
 const styles = {
-  border: "1px dashed gray",
+  border: "1px solid gray",
   padding: "0.5rem 1rem",
   cursor: "move",
 };
@@ -14,22 +14,26 @@ const Kotak = ({ title }) => {
   if (title == "X^2") {
     width = 4;
     height = 4;
-    backgroundColor = "bg-blue-500";
+    backgroundColor = "bg-blue-600";
   } else if (title == "X") {
-    width = 4;
-    height = 2;
-    backgroundColor = "bg-green-500";
+    width = 2;
+    height = 4;
+    backgroundColor = "bg-green-600";
   } else if (title == "1") {
     width = 2;
     height = 2;
-    backgroundColor = "bg-orange-500";
+    backgroundColor = "bg-orange-600";
+  } else if (title == "X ") {
+    width = 4;
+    height = 2;
+    backgroundColor = "bg-green-600";
   }
 
-  const widthFromSize = `${width}rem`;
-  const heightFromSize = `${height}rem`;
+  const widthFromSize = `${width * 2}rem`;
+  const heightFromSize = `${height * 2}rem`;
   return (
     <div
-      className={`flex flex-col text-white font-bold items-center justify-center ${backgroundColor}`}
+      className={`flex flex-col animate-popup text-white font-bold items-center justify-center hover:border-2 hover:border-solid hover:border-black ${backgroundColor}`}
       style={{
         ...styles,
         width: widthFromSize,
