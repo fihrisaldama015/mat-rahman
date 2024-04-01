@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { useDrop } from "react-dnd";
 import { snapToGrid } from "@/app/components/snapToGrid";
 import Latex from "react-latex-next";
+import useScreenSize from "@/app/utils/useScreenSize";
 
 const styles = {
   width: "100%",
@@ -14,13 +15,20 @@ const styles = {
   position: "relative",
 };
 
-const randomId = () => Math.random().toString(36).substring(7);
+const NORMAL_BOX_WIDTH = 64;
+const BIG_BOX_WIDTH = 2 * NORMAL_BOX_WIDTH;
+const BOX_TOP = 192;
+const GAP = 32;
+const TOTAL_STEP = 13;
 
 const Playground = ({ isSnapToGrid }) => {
   const [step, setStep] = useState(0);
-  const [isPrev, setIsPrev] = useState(false);
   const [preview, setPreview] = useState(false);
   const [previewPL, setPreviewPL] = useState(false);
+  const [previewHasil, setPreviewHasil] = useState({
+    display: false,
+    step: 0,
+  });
   const [kotak, setKotak] = useState({});
   const listKotak = {
     a: { title: "X^2", left: 0, top: 0 },
@@ -29,39 +37,85 @@ const Playground = ({ isSnapToGrid }) => {
     // d: { title: "X ", left: 128 + 16, top: 0 },
   };
 
+  const screenSize = useScreenSize();
+  let BOX_LEFT =
+    Math.round(screenSize.width / 2 / 32) * 32 -
+    (BIG_BOX_WIDTH + NORMAL_BOX_WIDTH) / 2;
   const kondisiPerStep = (step) => {
+    const INITIAL_LEFT = BOX_LEFT - BIG_BOX_WIDTH;
     if (step == 1) {
       setKotak({});
     }
     if (step == 2) {
-      addBox("1", "X^2", 128 * 4, 200);
-      setPreview(false);
+      addBox("1", "X^2", INITIAL_LEFT, BOX_TOP);
     } else if (step == 3) {
-      setPreview(false);
-
-      addBox("2", "X", 128 * 5 + 64, 200);
+      addBox("2", "X", INITIAL_LEFT + BIG_BOX_WIDTH + GAP, BOX_TOP);
     } else if (step == 4) {
-      setPreview(false);
-
-      addBox("3", "X", 800, 200);
+      addBox(
+        "3",
+        "X",
+        INITIAL_LEFT + BIG_BOX_WIDTH + NORMAL_BOX_WIDTH + GAP * 2,
+        BOX_TOP
+      );
     } else if (step == 5) {
-      setPreview(false);
+      addBox(
+        "4",
+        "1",
+        INITIAL_LEFT + BIG_BOX_WIDTH + 2 * NORMAL_BOX_WIDTH + GAP * 3,
+        BOX_TOP
+      );
+    }
 
-      addBox("4", "1", 900, 200);
-    } else if (step == 6) {
-      setPreview(false);
-
+    if (step >= 6) {
+      const TEMP_LEFT = step >= 9 ? BIG_BOX_WIDTH * 2 : BOX_LEFT;
       setKotak((prev) => ({
         ...kotak,
-        [1]: { ...prev[1], left: 672, top: 192 },
-        [2]: { title: "X ", left: 672, top: 320 },
-        [3]: { ...prev[3], left: 800, top: 192 },
-        [4]: { ...prev[4], left: 800, top: 320 },
+        [1]: { ...prev[1], left: TEMP_LEFT, top: BOX_TOP },
+        [2]: {
+          title: "X ",
+          left: TEMP_LEFT,
+          top: BOX_TOP + BIG_BOX_WIDTH,
+        },
+        [3]: {
+          ...prev[3],
+          left: TEMP_LEFT + BIG_BOX_WIDTH,
+          top: BOX_TOP,
+        },
+        [4]: {
+          ...prev[4],
+          left: TEMP_LEFT + BIG_BOX_WIDTH,
+          top: BOX_TOP + BIG_BOX_WIDTH,
+        },
       }));
-    } else if (step == 7) {
+    }
+    if (step == 7) {
       setPreview(true);
-    } else if (step == 8) {
+    } else {
+      setPreview(false);
+    }
+    if (step >= 8) {
       setPreviewPL(true);
+    } else {
+      setPreviewPL(false);
+    }
+    if (step >= 9) {
+      setPreviewHasil((value) => ({
+        ...value,
+        display: true,
+        step: 1,
+      }));
+      if (step >= 10) {
+        setPreviewHasil((value) => ({
+          ...value,
+          step: step - 8,
+        }));
+      }
+    } else {
+      setPreviewHasil((value) => ({
+        ...value,
+        display: false,
+        step: 0,
+      }));
     }
   };
 
@@ -133,8 +187,14 @@ const Playground = ({ isSnapToGrid }) => {
     <div className="flex flex-col h-screen">
       <div className="flex flex-col flex-1 justify-between bg-white">
         <div
-          className="absolute flex flex-col gap-3 items-center left-1/2 text-black bg-white  -translate-x-1/2 -translate-y-1/2 transition-all"
-          style={{ top: step > 0 ? "8rem" : "50%" }}
+          className="absolute flex flex-col gap-3 items-center text-black bg-white   transition-all duration-1000 -translate-y-1/2"
+          style={{
+            top: step > 0 ? "8rem" : "50%",
+            transform: previewHasil.display
+              ? "translateX(0) translateY(-50%)"
+              : "translateX(-50%) translateY(-50%)",
+            left: previewHasil.display ? "20%" : "50%",
+          }}
         >
           <div className="px-3 py-2 rounded-xl shadow-xl ring-1">Soal</div>
           <h1 className="text-3xl">
@@ -144,10 +204,17 @@ const Playground = ({ isSnapToGrid }) => {
 
         <div ref={dropRef} style={styles} className="transition-all">
           <div
-            className="absolute left-[672px] top-[192px] animate-popup text-black"
-            style={{ display: preview ? "block" : "none" }}
+            className="absolute text-black transition-all duration-1000"
+            style={{
+              left: step >= 9 ? BIG_BOX_WIDTH * 2 : BOX_LEFT,
+              top: BOX_TOP,
+            }}
           >
-            <div className="relative">
+            <div
+              className="relative animate-popup"
+              style={{ display: preview ? "block" : "none" }}
+            >
+              {/* HORIZONTAL */}
               <div className="absolute -translate-y-8 w-[128px]">
                 <div className="w-full flex flex-col items-center justify-center">
                   <Latex>$X$</Latex>
@@ -160,6 +227,8 @@ const Playground = ({ isSnapToGrid }) => {
                   <div className="bg-black translate-y-0 w-3/4 h-[1px]"></div>
                 </div>
               </div>
+              {/* HORIZONTAL */}
+              {/* VERTIKAL */}
               <div className="absolute translate-y-[128px] -translate-x-8 h-[64px] flex items-center">
                 <div className="-rotate-90">
                   <Latex>$1$</Latex>
@@ -172,11 +241,114 @@ const Playground = ({ isSnapToGrid }) => {
                 </div>
                 <div className="bg-black translate-x-1 h-3/4 w-[1px]"></div>
               </div>
+              {/* VERTIKAL */}
+            </div>
+            <div
+              className="relative animate-popup"
+              style={{ display: previewPL ? "block" : "none" }}
+            >
+              {/* HORIZONTAL */}
+              <div className="absolute -translate-y-8 w-[192px]">
+                <div className="w-full flex flex-col items-center justify-center">
+                  <Latex>$P = X + 1$</Latex>
+                </div>
+              </div>
+
+              {/* VERTIKAL */}
+              <div className="absolute -translate-x-16 h-48 flex items-center">
+                <div className="-rotate-90 w-max">
+                  <Latex>$L = X + 1$</Latex>
+                </div>
+              </div>
             </div>
           </div>
           {Object.keys(kotak).map((key) => (
             <KotakSoal key={key} id={key} {...kotak[key]} />
           ))}
+          <div
+            className="absolute right-16 items-center h-full animate-popup"
+            style={{ display: previewHasil.display ? "flex" : "none" }}
+          >
+            <div className="flex flex-row items-center gap-4 p-6 bg-slate-100 rounded-xl shadow-xl ring-1 ring-slate-300">
+              <div className="flex flex-col items-center gap-4">
+                <div
+                  className=" flex-col items-center gap-4"
+                  style={{
+                    display: previewHasil.step > 0 ? "flex" : "none",
+                  }}
+                >
+                  <h1 className="text-3xl font-medium">Hasil</h1>
+                  <div className="bg-white rounded-lg px-3 py-1 ring-1 text-3xl">
+                    <Latex>$P = X + 1$</Latex>
+                  </div>
+                  <div className="bg-white rounded-lg px-3 py-1 ring-1 text-3xl">
+                    <Latex>$L = X + 1$</Latex>
+                  </div>
+                </div>
+                <div
+                  className=" items-center gap-2 animate-popup"
+                  style={{ display: previewHasil.step > 1 ? "flex" : "none" }}
+                >
+                  Luas Persegi Panjang =
+                  <div className="bg-white rounded-lg px-3 py-1 ring-1 text-xl">
+                    <Latex>$P . L$</Latex>
+                  </div>
+                </div>
+                <div
+                  className="flex items-center gap-2 font-medium text-3xl animate-popup"
+                  style={{ display: previewHasil.step > 2 ? "flex" : "none" }}
+                >
+                  0 =
+                  <div className="bg-white rounded-lg px-3 py-1 ring-1 text-3xl">
+                    <Latex>$(X+1)(X+1)$</Latex>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col items-center gap-4">
+                <div
+                  className="flex-col items-center gap-4 animate-popup"
+                  style={{
+                    display: previewHasil.step > 3 ? "flex" : "none",
+                  }}
+                >
+                  <h2 className="text-xl">Akar</h2>
+                  <div className="flex items-center gap-4">
+                    <div className="bg-white rounded-lg px-3 py-1 ring-1 text-xl">
+                      <Latex>$X+1 = 0$</Latex>
+                    </div>
+                    <span className="text-2xl">
+                      <Latex>$\vee$</Latex>
+                    </span>
+                    <div className="bg-white rounded-lg px-3 py-1 ring-1 text-3xl">
+                      <Latex>$X+1 = 0$</Latex>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="bg-white rounded-lg px-3 py-1 ring-1 text-3xl">
+                      <Latex>$X_{1} = -1$</Latex>
+                    </div>
+                    <span className="text-4xl">
+                      <Latex>$\vee$</Latex>
+                    </span>
+                    <div className="bg-white rounded-lg px-3 py-1 ring-1 text-3xl">
+                      <Latex>$X_{2} = -1$</Latex>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  className="bg-white rounded-lg px-3 py-1 ring-1 text-3xl animate-popup"
+                  style={{
+                    display: previewHasil.step > 4 ? "block" : "none",
+                  }}
+                >
+                  <Latex>
+                    $Hp = ${"{"}$ -1, -1 $ {"}"}
+                  </Latex>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div className="relative h-48 w-full flex justify-center bg-slate-300 text-black">
@@ -200,7 +372,6 @@ const Playground = ({ isSnapToGrid }) => {
         <button
           className="absolute bg-red-500 ring-1 ring-red-600 rounded-xl py-6 px-12 left-16 top-8 text-white hover:bg-red-600 cursor-pointer transition-all disabled:bg-gray-400 disabled:cursor-not-allowed disabled:ring-0"
           onClick={() => {
-            setIsPrev(true);
             setStep((prev) => {
               kondisiPerStep(prev - 1);
               return prev - 1;
@@ -215,13 +386,13 @@ const Playground = ({ isSnapToGrid }) => {
           onClick={() => {
             setStep((prev) => {
               kondisiPerStep(prev + 1);
-              if (prev == 8) {
-                return 8;
+              if (prev == TOTAL_STEP) {
+                return TOTAL_STEP - 1;
               }
               return prev + 1;
             });
           }}
-          disabled={step == 8}
+          disabled={step == TOTAL_STEP}
         >
           Next
         </button>
