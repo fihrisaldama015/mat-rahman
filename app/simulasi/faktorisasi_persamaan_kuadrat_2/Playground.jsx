@@ -19,7 +19,7 @@ const NORMAL_BOX_WIDTH = 64;
 const BIG_BOX_WIDTH = 2 * NORMAL_BOX_WIDTH;
 const BOX_TOP = 192;
 const GAP = 32;
-const TOTAL_STEP = 13;
+const TOTAL_STEP = 15;
 
 const Playground = ({ isSnapToGrid }) => {
   const [step, setStep] = useState(0);
@@ -34,7 +34,8 @@ const Playground = ({ isSnapToGrid }) => {
     a: { title: "X^2", left: 0, top: 0 },
     b: { title: "X", left: 128 + 16, top: 0 },
     c: { title: "1", left: 128 + 64 + 32, top: 0 },
-    // d: { title: "X ", left: 128 + 16, top: 0 },
+    d: { title: "-X", left: -64 - 16, top: 0 },
+    e: { title: "-1", left: 128 + 64 + 64 + 48, top: 0 },
   };
 
   const screenSize = useScreenSize();
@@ -49,37 +50,37 @@ const Playground = ({ isSnapToGrid }) => {
     if (step == 2) {
       addBox("1", "X^2", INITIAL_LEFT, BOX_TOP);
     } else if (step == 3) {
-      addBox("2", "X", INITIAL_LEFT + BIG_BOX_WIDTH + GAP, BOX_TOP);
+      addBox("2", "-X", INITIAL_LEFT + BIG_BOX_WIDTH + GAP, BOX_TOP);
     } else if (step == 4) {
       addBox(
         "3",
-        "X",
+        "-1",
         INITIAL_LEFT + BIG_BOX_WIDTH + NORMAL_BOX_WIDTH + GAP * 2,
         BOX_TOP
       );
     } else if (step == 5) {
       addBox(
         "4",
-        "1",
+        "-1",
         INITIAL_LEFT + BIG_BOX_WIDTH + 2 * NORMAL_BOX_WIDTH + GAP * 3,
         BOX_TOP
       );
     }
 
-    if (step >= 6) {
-      const TEMP_LEFT = step >= 9 ? BIG_BOX_WIDTH * 2 : BOX_LEFT;
+    if (step == 6) {
+      const TEMP_LEFT = BOX_LEFT;
       setKotak((prev) => ({
         ...kotak,
         [1]: { ...prev[1], left: TEMP_LEFT, top: BOX_TOP },
         [2]: {
-          title: "X ",
-          left: TEMP_LEFT,
-          top: BOX_TOP + BIG_BOX_WIDTH,
+          ...prev[2],
+          left: TEMP_LEFT + BIG_BOX_WIDTH,
+          top: BOX_TOP,
         },
         [3]: {
           ...prev[3],
-          left: TEMP_LEFT + BIG_BOX_WIDTH,
-          top: BOX_TOP,
+          left: TEMP_LEFT + BIG_BOX_WIDTH + NORMAL_BOX_WIDTH,
+          top: BOX_TOP + BIG_BOX_WIDTH,
         },
         [4]: {
           ...prev[4],
@@ -89,25 +90,69 @@ const Playground = ({ isSnapToGrid }) => {
       }));
     }
     if (step == 7) {
+      setKotak((prev) => ({
+        ...kotak,
+        [5]: { title: "X", left: BOX_LEFT + 300, top: BOX_TOP + 128 },
+        [6]: {
+          title: "-X",
+          left: BOX_LEFT + NORMAL_BOX_WIDTH + 300,
+          top: BOX_TOP + 128,
+        },
+      }));
+    }
+    if (step >= 8) {
+      const TEMP_LEFT = step >= 11 ? BIG_BOX_WIDTH * 2 : BOX_LEFT;
+      setKotak((prev) => ({
+        ...kotak,
+        [1]: { ...prev[1], left: TEMP_LEFT, top: BOX_TOP },
+        [2]: {
+          ...prev[2],
+          left: TEMP_LEFT + BIG_BOX_WIDTH,
+          top: BOX_TOP,
+        },
+        [3]: {
+          ...prev[3],
+          left: TEMP_LEFT + BIG_BOX_WIDTH + NORMAL_BOX_WIDTH,
+          top: BOX_TOP + BIG_BOX_WIDTH,
+        },
+        [4]: {
+          ...prev[4],
+          left: TEMP_LEFT + BIG_BOX_WIDTH,
+          top: BOX_TOP + BIG_BOX_WIDTH,
+        },
+        [5]: {
+          title: "-X",
+          left: TEMP_LEFT + BIG_BOX_WIDTH + NORMAL_BOX_WIDTH,
+          top: BOX_TOP,
+        },
+        [6]: {
+          title: "X ",
+          left: TEMP_LEFT,
+          top: BOX_TOP + BIG_BOX_WIDTH,
+        },
+      }));
+    }
+
+    if (step == 9) {
       setPreview(true);
     } else {
       setPreview(false);
     }
-    if (step >= 8) {
+    if (step >= 10) {
       setPreviewPL(true);
     } else {
       setPreviewPL(false);
     }
-    if (step >= 9) {
+    if (step >= 11) {
       setPreviewHasil((value) => ({
         ...value,
         display: true,
         step: 1,
       }));
-      if (step >= 10) {
+      if (step >= 12) {
         setPreviewHasil((value) => ({
           ...value,
-          step: step - 8,
+          step: step - 10,
         }));
       }
     } else {
@@ -198,7 +243,7 @@ const Playground = ({ isSnapToGrid }) => {
         >
           <div className="px-3 py-2 rounded-xl shadow-xl ring-1">Soal</div>
           <h1 className="text-3xl">
-            <Latex>$X^2 + 2X + 1$</Latex>
+            <Latex>$X^2 - X - 2$</Latex>
           </h1>
         </div>
 
@@ -206,7 +251,7 @@ const Playground = ({ isSnapToGrid }) => {
           <div
             className="absolute text-black transition-all duration-1000"
             style={{
-              left: step >= 9 ? BIG_BOX_WIDTH * 2 : BOX_LEFT,
+              left: step >= 11 ? BIG_BOX_WIDTH * 2 : BOX_LEFT,
               top: BOX_TOP,
             }}
           >
@@ -223,7 +268,13 @@ const Playground = ({ isSnapToGrid }) => {
               </div>
               <div className="absolute w-[64px] translate-x-[128px] -translate-y-8">
                 <div className="w-full flex flex-col items-center justify-center">
-                  <Latex>$1$</Latex>
+                  <Latex>$-1$</Latex>
+                  <div className="bg-black translate-y-0 w-3/4 h-[1px]"></div>
+                </div>
+              </div>
+              <div className="absolute w-[64px] translate-x-48 -translate-y-8">
+                <div className="w-full flex flex-col items-center justify-center">
+                  <Latex>$-1$</Latex>
                   <div className="bg-black translate-y-0 w-3/4 h-[1px]"></div>
                 </div>
               </div>
@@ -248,9 +299,9 @@ const Playground = ({ isSnapToGrid }) => {
               style={{ display: previewPL ? "block" : "none" }}
             >
               {/* HORIZONTAL */}
-              <div className="absolute -translate-y-8 w-[192px]">
+              <div className="absolute -translate-y-8 w-[16rem]">
                 <div className="w-full flex flex-col items-center justify-center">
-                  <Latex>$P = X + 1$</Latex>
+                  <Latex>$P = X - 2$</Latex>
                 </div>
               </div>
 
@@ -279,7 +330,7 @@ const Playground = ({ isSnapToGrid }) => {
                 >
                   <h1 className="text-2xl font-medium">Hasil</h1>
                   <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
-                    <Latex>$P = X + 1$</Latex>
+                    <Latex>$P = X - 2$</Latex>
                   </div>
                   <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
                     <Latex>$L = X + 1$</Latex>
@@ -300,7 +351,7 @@ const Playground = ({ isSnapToGrid }) => {
                 >
                   0 =
                   <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
-                    <Latex>$(X+1)(X+1)$</Latex>
+                    <Latex>$(X-2)(X+1)$</Latex>
                   </div>
                 </div>
               </div>
@@ -314,7 +365,7 @@ const Playground = ({ isSnapToGrid }) => {
                   <h2 className="text-2xl font-medium">Akar</h2>
                   <div className="flex items-center gap-4">
                     <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
-                      <Latex>$X+1 = 0$</Latex>
+                      <Latex>$X-2 = 0$</Latex>
                     </div>
                     <span className="text-lg">
                       <Latex>$\vee$</Latex>
@@ -325,7 +376,7 @@ const Playground = ({ isSnapToGrid }) => {
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
-                      <Latex>$X_{1} = -1$</Latex>
+                      <Latex>$X_{1} = 2$</Latex>
                     </div>
                     <span className="text-lg">
                       <Latex>$\vee$</Latex>
@@ -343,8 +394,29 @@ const Playground = ({ isSnapToGrid }) => {
                   }}
                 >
                   <Latex>
-                    $Hp = ${"{"}$ -1, -1 $ {"}"}
+                    $Hp = ${"{"}$ 2, -1 $ {"}"}
                   </Latex>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="absolute right-16 items-center h-full animate-popup"
+            style={{ display: step == 7 ? "flex" : "none" }}
+          >
+            <div className="flex flex-row items-start gap-4 p-6 bg-slate-100 rounded-xl shadow-xl ring-1 ring-slate-300">
+              <div className="flex flex-col items-start gap-4">
+                <div className="flex flex-col items-center gap-4">
+                  <h1 className="text-2xl font-bold">Keterangan</h1>
+                  <p className="w-64 text-justify">
+                    Pada Blok tersebut tidak dapat membentuk persegi panjang
+                    atau persegi. Oleh karena itu ditambahkan blok positif X dan
+                    blok negatif X, sehingga blok dapat disusun menjadi bentuk
+                    persegi panjang atau persegi dan tidak merubah soal{" "}
+                  </p>
+                  <p className="font-bold italic">
+                    {"("}Prinsip Nol Blok{")"}
+                  </p>
                 </div>
               </div>
             </div>

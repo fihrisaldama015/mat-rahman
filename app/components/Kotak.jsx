@@ -27,6 +27,18 @@ const Kotak = ({ title }) => {
     width = 4;
     height = 2;
     backgroundColor = "bg-green-600";
+  } else if (title == "-X") {
+    width = 2;
+    height = 4;
+    backgroundColor = "bg-red-600";
+  } else if (title == "-X ") {
+    width = 4;
+    height = 2;
+    backgroundColor = "bg-red-600";
+  } else if (title == "-1") {
+    width = 2;
+    height = 2;
+    backgroundColor = "bg-yellow-600";
   }
 
   const widthFromSize = `${width * 2}rem`;
