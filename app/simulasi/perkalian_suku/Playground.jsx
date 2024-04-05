@@ -7,7 +7,7 @@ import { useDrop } from "react-dnd";
 import { snapToGrid } from "@/app/components/snapToGrid";
 import Latex from "react-latex-next";
 import useScreenSize from "@/app/utils/useScreenSize";
-import {getEquation} from "@/app/simulasi/perkalian_suku/getEquation";
+import {getEquation, getEquationPenjabaran, getPenjabaran} from "@/app/simulasi/perkalian_suku/getEquation";
 
 const styles = {
   width: "100%",
@@ -36,90 +36,14 @@ const Playground = ({ isSnapToGrid }) => {
     a: { title: "X^2", left: 0, top: 0 },
     b: { title: "X", left: 128 + 16, top: 0 },
     c: { title: "1", left: 128 + 64 + 32, top: 0 },
-    //d: { title: "X ", left: 128 + 16, top: 0 },
+    d: { title: "-X", left: -64 - 16, top: 0 },
+    e: { title: "-1", left: 128 + 64 + 64 + 48, top: 0 },
   };
 
   const screenSize = useScreenSize();
   let BOX_LEFT =
-    Math.round(screenSize.width / 2 / 32) * 32 -
-    (BIG_BOX_WIDTH + NORMAL_BOX_WIDTH) / 2;
-  const kondisiPerStep = (step) => {
-    const INITIAL_LEFT = BOX_LEFT - BIG_BOX_WIDTH;
-    if (step == 1) {
-      setKotak({});
-    }
-    if (step == 2) {
-      addBox("1", "X^2", INITIAL_LEFT, BOX_TOP);
-    } else if (step == 3) {
-      addBox("2", "X", INITIAL_LEFT + BIG_BOX_WIDTH + GAP, BOX_TOP);
-    } else if (step == 4) {
-      addBox(
-        "3",
-        "X",
-        INITIAL_LEFT + BIG_BOX_WIDTH + NORMAL_BOX_WIDTH + GAP * 2,
-        BOX_TOP
-      );
-    } else if (step == 5) {
-      addBox(
-        "4",
-        "1",
-        INITIAL_LEFT + BIG_BOX_WIDTH + 2 * NORMAL_BOX_WIDTH + GAP * 3,
-        BOX_TOP
-      );
-    }
-
-    if (step >= 6) {
-      const TEMP_LEFT = step >= 9 ? BIG_BOX_WIDTH * 2 : BOX_LEFT;
-      setKotak((prev) => ({
-        ...kotak,
-        [1]: { ...prev[1], left: TEMP_LEFT, top: BOX_TOP },
-        [2]: {
-          title: "X ",
-          left: TEMP_LEFT,
-          top: BOX_TOP + BIG_BOX_WIDTH,
-        },
-        [3]: {
-          ...prev[3],
-          left: TEMP_LEFT + BIG_BOX_WIDTH,
-          top: BOX_TOP,
-        },
-        [4]: {
-          ...prev[4],
-          left: TEMP_LEFT + BIG_BOX_WIDTH,
-          top: BOX_TOP + BIG_BOX_WIDTH,
-        },
-      }));
-    }
-    if (step == 7) {
-      setPreview(true);
-    } else {
-      setPreview(false);
-    }
-    if (step >= 8) {
-      setPreviewPL(true);
-    } else {
-      setPreviewPL(false);
-    }
-    if (step >= 9) {
-      setPreviewHasil((value) => ({
-        ...value,
-        display: true,
-        step: 1,
-      }));
-      if (step >= 10) {
-        setPreviewHasil((value) => ({
-          ...value,
-          step: step - 8,
-        }));
-      }
-    } else {
-      setPreviewHasil((value) => ({
-        ...value,
-        display: false,
-        step: 0,
-      }));
-    }
-  };
+      Math.round(screenSize.width / 2 / 32) * 32 -
+      (BIG_BOX_WIDTH + NORMAL_BOX_WIDTH) / 2;
 
   const addBox = (id, title, left, top) => {
     setKotak(
@@ -187,6 +111,7 @@ const Playground = ({ isSnapToGrid }) => {
   useEffect(() => {
     setResult(getEquation(kotak))
   }, [kotak]);
+
   return (
     <div className="flex flex-col h-screen">
       <div className="flex flex-col flex-1 justify-between bg-white">
@@ -204,7 +129,9 @@ const Playground = ({ isSnapToGrid }) => {
         >
           <div className="px-3 py-2 rounded-xl shadow-xl ring-1">Jawaban</div>
           <h1 className="text-3xl">
-            <Latex>${`(${result.EqX} X^2 + ${result.EqConst}) (${result.EqX2}X^2 + ${result.EqConst2}X)`}$</Latex>
+            <Latex>${getPenjabaran(result.EqX,result.EqX2,result.EqConst,result.EqConst2)}$</Latex>
+            <br/>
+            <Latex>${getEquationPenjabaran(result.EqX,result.EqX2,result.EqConst,result.EqConst2)}$</Latex>
           </h1>
         </div>
 
@@ -368,7 +295,7 @@ const Playground = ({ isSnapToGrid }) => {
                 addBox(
                   Math.random().toString(36).substring(7),
                   listKotak[key].title,
-                  listKotak[key].left,
+                  listKotak[key].left+64+16,
                   listKotak[key].top
                 )
               }

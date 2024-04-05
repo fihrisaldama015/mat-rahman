@@ -1,19 +1,22 @@
-function boxtitleToEquation(arrBox, isLeft) {
-  // isLeft merupakan penanda apakah box tersebut berada di sisi kiri bila benar, apabila box diatas gunakan false
+function boxtitleToEquation(arrBox, isTop) {
+  // isTop merupakan penanda apakah box tersebut berada di sisi atas bila benar, apabila box yang dicek dikiri gunakan false
   // example output : Eqx = 2, EqConst = 1 ==> 2X + 1
   let EqX = 0;
   let EqConst = 0;
 
   for (const box in arrBox) {
+    if(arrBox[box].substring(0, 1) === "-"){
+      arrBox[box] = arrBox[box].substring(1);
+    }
     switch (arrBox[box]) {
       case "X^2":
         EqX += 1;
         break;
       case "X ":
-        isLeft ? (EqX += 1) : (EqConst += 1);
+        isTop ? (EqX += 1) : (EqConst += 1);
         break;
       case "X":
-        !isLeft ? (EqX += 1) : (EqConst += 1);
+        !isTop ? (EqX += 1) : (EqConst += 1);
         break;
       case "1":
         EqConst += 1;
@@ -31,10 +34,14 @@ function getEquationTitleFromArr(arr, isTop) {
     if (isTop) {
       if (tempItems.top === arr[i].top) {
         result.push(arr[i].title);
+      }else{
+        break;
       }
     } else {
       if (tempItems.left === arr[i].left) {
         result.push(arr[i].title);
+      }else{
+        break;
       }
     }
   }
@@ -88,13 +95,44 @@ export function getEquation(arr) {
     getEquationTitleFromArr(findLeftMinus, false),
     false
   );
-
+  console.log("ini minus:",secondEqMinus,firstEqMinus)
+  console.log("ini plus:",secondEqPlus,firstEqPlus)
   // ======= MERGE SECTION =======
-  const EqX = firstEqPlus.EqX - firstEqMinus.EqX;
+  const EqX = firstEqPlus.EqX
   const EqConst = firstEqPlus.EqConst - firstEqMinus.EqConst;
 
-  const EqX2 = secondEqPlus.EqX - secondEqMinus.EqX;
+  const EqX2 = secondEqPlus.EqX
   const EqConst2 = secondEqPlus.EqConst - secondEqMinus.EqConst;
 
   return { EqX, EqConst, EqX2, EqConst2 };
+}
+
+export function getEquationPenjabaran(EqX, EqX2, EqConst, EqConst2) {
+  const constantaX = EqX*EqConst2 + EqX2*EqConst
+  const constanta = EqConst*EqConst2
+
+  const constantaXString = constantaX >= 0 ? `+ ${constantaX}` : `${constantaX}`
+  const constantaString = constanta >= 0 ? `+ ${constanta}` : `${constanta}`
+  return `${EqX*EqX2}X^2 ${constantaXString}X ${constantaString}`;
+}
+
+export function getPenjabaran(Eqx, Eqx2, EqConst, EqConst2) {
+  let penjabaran = "";
+  penjabaran += '( '
+  if(Eqx !== 0){
+    penjabaran += `${Eqx}X`;
+  }
+  if(EqConst !== 0){
+    penjabaran += EqConst > 0 ? `+ ${EqConst}` :`${EqConst}`;
+  }
+  penjabaran += ' ) ( '
+
+  if(Eqx2 !== 0){
+    penjabaran += `${Eqx2}X`;
+  }
+  if(EqConst2 !== 0){
+    penjabaran += EqConst2 > 0 ? `+ ${EqConst2}` :`${EqConst2}`;
+  }
+    penjabaran += ' )'
+  return penjabaran;
 }
