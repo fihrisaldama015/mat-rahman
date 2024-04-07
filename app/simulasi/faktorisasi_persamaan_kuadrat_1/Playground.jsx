@@ -31,10 +31,10 @@ const Playground = ({ isSnapToGrid }) => {
   });
   const [kotak, setKotak] = useState({});
   const listKotak = {
-    a: { title: "X", left: 64 + 16, top: 0 },
-    b: { title: "1", left: 64 + 64 + 32, top: 0 },
-    c: { title: "-X", left: 0, top: 0 },
-    d: { title: "-1", left: 64 + 64 + 64 + 48, top: 0 },
+    a: { title: "X^2", left: 0, top: 0 },
+    b: { title: "X", left: 128 + 16, top: 0 },
+    c: { title: "1", left: 128 + 64 + 32, top: 0 },
+    // d: { title: "X ", left: 128 + 16, top: 0 },
   };
 
   const screenSize = useScreenSize();
@@ -42,74 +42,79 @@ const Playground = ({ isSnapToGrid }) => {
     Math.round(screenSize.width / 2 / 32) * 32 -
     (BIG_BOX_WIDTH + NORMAL_BOX_WIDTH) / 2;
   const kondisiPerStep = (step) => {
-    const INITIAL_LEFT = BOX_LEFT - BIG_BOX_WIDTH * 4;
+    const INITIAL_LEFT = BOX_LEFT - BIG_BOX_WIDTH;
     if (step == 1) {
       setKotak({});
     }
     if (step == 2) {
-      addBox("1", "X", INITIAL_LEFT, BOX_TOP);
+      addBox("1", "X^2", INITIAL_LEFT, BOX_TOP);
     } else if (step == 3) {
-      addBox("2", "X", INITIAL_LEFT + NORMAL_BOX_WIDTH + GAP, BOX_TOP);
+      addBox("2", "X", INITIAL_LEFT + BIG_BOX_WIDTH + GAP, BOX_TOP);
     } else if (step == 4) {
-      addBox("3", "X", INITIAL_LEFT + NORMAL_BOX_WIDTH * 2 + GAP * 2, BOX_TOP);
+      addBox(
+        "3",
+        "X",
+        INITIAL_LEFT + BIG_BOX_WIDTH + NORMAL_BOX_WIDTH + GAP * 2,
+        BOX_TOP
+      );
     } else if (step == 5) {
-      addBox("4", "-1", INITIAL_LEFT + NORMAL_BOX_WIDTH * 3 + GAP * 3, BOX_TOP);
-    } else if (step == 6) {
-      addBox("5", "-X", INITIAL_LEFT + NORMAL_BOX_WIDTH * 4 + GAP * 4, BOX_TOP);
-    } else if (step == 7) {
-      addBox("6", "-X", INITIAL_LEFT + NORMAL_BOX_WIDTH * 5 + GAP * 5, BOX_TOP);
-    } else if (step == 8) {
-      addBox("7", "1", INITIAL_LEFT + NORMAL_BOX_WIDTH * 6 + GAP * 6, BOX_TOP);
-    } else if (step == 9) {
-      addBox("8", "1", INITIAL_LEFT + NORMAL_BOX_WIDTH * 7 + GAP * 7, BOX_TOP);
-    } else if (step == 10) {
-      addBox("9", "1", INITIAL_LEFT + NORMAL_BOX_WIDTH * 8 + GAP * 8, BOX_TOP);
-    } else if (step == 11) {
-      addBox("10", "1", INITIAL_LEFT + NORMAL_BOX_WIDTH * 9 + GAP * 9, BOX_TOP);
+      addBox(
+        "4",
+        "1",
+        INITIAL_LEFT + BIG_BOX_WIDTH + 2 * NORMAL_BOX_WIDTH + GAP * 3,
+        BOX_TOP
+      );
     }
 
-    if (step == 12) {
+    if (step >= 6) {
+      const TEMP_LEFT = step >= 9 ? BIG_BOX_WIDTH * 2 : BOX_LEFT;
       setKotak((prev) => ({
         ...kotak,
+        [1]: { ...prev[1], left: TEMP_LEFT, top: BOX_TOP },
+        [2]: {
+          title: "X ",
+          left: TEMP_LEFT,
+          top: BOX_TOP + BIG_BOX_WIDTH,
+        },
+        [3]: {
+          ...prev[3],
+          left: TEMP_LEFT + BIG_BOX_WIDTH,
+          top: BOX_TOP,
+        },
         [4]: {
           ...prev[4],
-          left: INITIAL_LEFT + NORMAL_BOX_WIDTH * 5 + GAP * 5,
-          top: BOX_TOP,
-        },
-        [5]: {
-          ...prev[5],
-          left: INITIAL_LEFT + NORMAL_BOX_WIDTH * 3 + GAP * 3,
-          top: BOX_TOP,
-        },
-        [6]: {
-          ...prev[6],
-          left: INITIAL_LEFT + NORMAL_BOX_WIDTH * 4 + GAP * 4,
-          top: BOX_TOP,
+          left: TEMP_LEFT + BIG_BOX_WIDTH,
+          top: BOX_TOP + BIG_BOX_WIDTH,
         },
       }));
     }
-    if (step == 13) {
-      setKotak((prev) => ({
-        [1]: {
-          ...prev[1],
-          left: INITIAL_LEFT + NORMAL_BOX_WIDTH * 4 + GAP * 4,
-          top: BOX_TOP,
-        },
-        [2]: {
-          title: "1",
-          left: INITIAL_LEFT + NORMAL_BOX_WIDTH * 5 + GAP * 5,
-          top: BOX_TOP,
-        },
-        [3]: {
-          title: "1",
-          left: INITIAL_LEFT + NORMAL_BOX_WIDTH * 6 + GAP * 6,
-          top: BOX_TOP,
-        },
-        [4]: {
-          title: "1",
-          left: INITIAL_LEFT + NORMAL_BOX_WIDTH * 7 + GAP * 7,
-          top: BOX_TOP,
-        },
+    if (step == 7) {
+      setPreview(true);
+    } else {
+      setPreview(false);
+    }
+    if (step >= 8) {
+      setPreviewPL(true);
+    } else {
+      setPreviewPL(false);
+    }
+    if (step >= 9) {
+      setPreviewHasil((value) => ({
+        ...value,
+        display: true,
+        step: 1,
+      }));
+      if (step >= 10) {
+        setPreviewHasil((value) => ({
+          ...value,
+          step: step - 8,
+        }));
+      }
+    } else {
+      setPreviewHasil((value) => ({
+        ...value,
+        display: false,
+        step: 0,
       }));
     }
   };
@@ -192,8 +197,8 @@ const Playground = ({ isSnapToGrid }) => {
           }}
         >
           <div className="px-3 py-2 rounded-xl shadow-xl ring-1">Soal</div>
-          <h1 key={2} className="text-3xl animate-popup">
-            <Latex>$3X - 1 - 2X + 4$</Latex>
+          <h1 className="text-3xl">
+            <Latex>$X^2 + 2X + 1$</Latex>
           </h1>
         </div>
 
@@ -262,36 +267,84 @@ const Playground = ({ isSnapToGrid }) => {
           ))}
           <div
             className="absolute right-16 items-center h-full animate-popup"
-            style={{ display: "flex" }}
+            style={{ display: previewHasil.display ? "flex" : "none" }}
           >
             <div className="flex flex-row items-start gap-4 p-6 bg-slate-100 rounded-xl shadow-xl ring-1 ring-slate-300">
               <div className="flex flex-col items-start gap-4">
                 <div
-                  className=" flex-col items-center gap-2"
+                  className=" flex-col items-center gap-4"
                   style={{
-                    display: "flex",
+                    display: previewHasil.step > 0 ? "flex" : "none",
                   }}
                 >
                   <h1 className="text-2xl font-medium">Hasil</h1>
-                  <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg animate-popup">
-                    <Latex>$3X - 1 - 2X + 4$</Latex>
+                  <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
+                    <Latex>$P = X + 1$</Latex>
                   </div>
-                  {step >= 12 && (
-                    <>
-                      <Latex>$ \downarrow $</Latex>
-                      <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg animate-popup">
-                        <Latex>$3X - 2X - 1 + 4$</Latex>
-                      </div>
-                    </>
-                  )}
-                  {step >= 13 && (
-                    <>
-                      <Latex>$ \downarrow $</Latex>
-                      <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg animate-popup">
-                        <Latex>$X + 3$</Latex>
-                      </div>
-                    </>
-                  )}
+                  <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
+                    <Latex>$L = X + 1$</Latex>
+                  </div>
+                </div>
+                <div
+                  className=" items-center gap-2 font-medium animate-popup"
+                  style={{ display: previewHasil.step > 1 ? "flex" : "none" }}
+                >
+                  Luas Persegi Panjang =
+                  <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
+                    <Latex>$P . L$</Latex>
+                  </div>
+                </div>
+                <div
+                  className="flex items-center gap-2 font-medium text-lg animate-popup"
+                  style={{ display: previewHasil.step > 2 ? "flex" : "none" }}
+                >
+                  0 =
+                  <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
+                    <Latex>$(X+1)(X+1)$</Latex>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col items-start gap-4">
+                <div
+                  className="flex-col items-start gap-4 animate-popup"
+                  style={{
+                    display: previewHasil.step > 3 ? "flex" : "none",
+                  }}
+                >
+                  <h2 className="text-2xl font-medium">Akar</h2>
+                  <div className="flex items-center gap-4">
+                    <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
+                      <Latex>$X+1 = 0$</Latex>
+                    </div>
+                    <span className="text-lg">
+                      <Latex>$\vee$</Latex>
+                    </span>
+                    <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
+                      <Latex>$X+1 = 0$</Latex>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
+                      <Latex>$X_{1} = -1$</Latex>
+                    </div>
+                    <span className="text-lg">
+                      <Latex>$\vee$</Latex>
+                    </span>
+                    <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
+                      <Latex>$X_{2} = -1$</Latex>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  className="bg-white rounded-lg px-3 py-1 ring-1 text-lg animate-popup"
+                  style={{
+                    display: previewHasil.step > 4 ? "block" : "none",
+                  }}
+                >
+                  <Latex>
+                    $Hp = ${"{"}$ -1, -1 $ {"}"}
+                  </Latex>
                 </div>
               </div>
             </div>

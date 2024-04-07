@@ -19,7 +19,7 @@ const NORMAL_BOX_WIDTH = 64;
 const BIG_BOX_WIDTH = 2 * NORMAL_BOX_WIDTH;
 const BOX_TOP = 192;
 const GAP = 32;
-const TOTAL_STEP = 15;
+const TOTAL_STEP = 24;
 
 const Playground = ({ isSnapToGrid }) => {
   const [step, setStep] = useState(0);
@@ -42,32 +42,64 @@ const Playground = ({ isSnapToGrid }) => {
     Math.round(screenSize.width / 2 / 32) * 32 -
     (BIG_BOX_WIDTH + NORMAL_BOX_WIDTH) / 2;
   const kondisiPerStep = (step) => {
-    const INITIAL_LEFT = BOX_LEFT - BIG_BOX_WIDTH;
+    const INITIAL_LEFT = BOX_LEFT - BIG_BOX_WIDTH * 4;
     if (step == 1) {
       setKotak({});
     }
     if (step == 2) {
       addBox("1", "X^2", INITIAL_LEFT, BOX_TOP);
     } else if (step == 3) {
-      addBox("2", "-X", INITIAL_LEFT + BIG_BOX_WIDTH + GAP, BOX_TOP);
+      addBox("2", "X^2", INITIAL_LEFT + BIG_BOX_WIDTH + GAP, BOX_TOP);
     } else if (step == 4) {
+      addBox("3", "X^2", INITIAL_LEFT + BIG_BOX_WIDTH * 2 + GAP * 2, BOX_TOP);
+    } else if (step == 5) {
+      addBox("4", "X", INITIAL_LEFT + BIG_BOX_WIDTH * 3 + GAP * 3, BOX_TOP);
+    } else if (step == 6) {
       addBox(
-        "3",
-        "-1",
-        INITIAL_LEFT + BIG_BOX_WIDTH + NORMAL_BOX_WIDTH + GAP * 2,
+        "5",
+        "X",
+        INITIAL_LEFT + BIG_BOX_WIDTH * 3 + GAP * 4 + NORMAL_BOX_WIDTH,
         BOX_TOP
       );
-    } else if (step == 5) {
+    } else if (step == 7) {
       addBox(
-        "4",
+        "6",
+        "X",
+        INITIAL_LEFT + BIG_BOX_WIDTH * 3 + GAP * 5 + NORMAL_BOX_WIDTH * 2,
+        BOX_TOP
+      );
+    } else if (step == 8) {
+      addBox(
+        "7",
+        "X",
+        INITIAL_LEFT + BIG_BOX_WIDTH * 3 + GAP * 6 + NORMAL_BOX_WIDTH * 3,
+        BOX_TOP
+      );
+    } else if (step == 9) {
+      addBox(
+        "8",
+        "X",
+        INITIAL_LEFT + BIG_BOX_WIDTH * 3 + GAP * 7 + NORMAL_BOX_WIDTH * 4,
+        BOX_TOP
+      );
+    } else if (step == 10) {
+      addBox(
+        "9",
         "-1",
-        INITIAL_LEFT + BIG_BOX_WIDTH + 2 * NORMAL_BOX_WIDTH + GAP * 3,
+        INITIAL_LEFT + BIG_BOX_WIDTH * 3 + GAP * 8 + NORMAL_BOX_WIDTH * 5,
+        BOX_TOP
+      );
+    } else if (step == 11) {
+      addBox(
+        "10",
+        "-1",
+        INITIAL_LEFT + BIG_BOX_WIDTH * 3 + GAP * 9 + NORMAL_BOX_WIDTH * 6,
         BOX_TOP
       );
     }
 
-    if (step == 6) {
-      const TEMP_LEFT = BOX_LEFT;
+    if (step == 12) {
+      const TEMP_LEFT = BOX_LEFT - BIG_BOX_WIDTH * 2;
       setKotak((prev) => ({
         ...kotak,
         [1]: { ...prev[1], left: TEMP_LEFT, top: BOX_TOP },
@@ -78,29 +110,60 @@ const Playground = ({ isSnapToGrid }) => {
         },
         [3]: {
           ...prev[3],
-          left: TEMP_LEFT + BIG_BOX_WIDTH + NORMAL_BOX_WIDTH,
-          top: BOX_TOP + BIG_BOX_WIDTH,
+          left: TEMP_LEFT + BIG_BOX_WIDTH * 2,
+          top: BOX_TOP,
         },
         [4]: {
-          ...prev[4],
+          title: "X ",
+          left: TEMP_LEFT,
+          top: BOX_TOP + BIG_BOX_WIDTH,
+        },
+        [5]: {
+          title: "X ",
           left: TEMP_LEFT + BIG_BOX_WIDTH,
           top: BOX_TOP + BIG_BOX_WIDTH,
         },
+        [6]: {
+          title: "X ",
+          left: TEMP_LEFT + BIG_BOX_WIDTH * 2,
+          top: BOX_TOP + BIG_BOX_WIDTH,
+        },
+        [7]: {
+          title: "X ",
+          left: TEMP_LEFT,
+          top: BOX_TOP + BIG_BOX_WIDTH + NORMAL_BOX_WIDTH,
+        },
+        [8]: {
+          title: "X ",
+          left: TEMP_LEFT + BIG_BOX_WIDTH,
+          top: BOX_TOP + BIG_BOX_WIDTH + NORMAL_BOX_WIDTH,
+        },
+        [9]: {
+          ...prev[9],
+          left: TEMP_LEFT + BIG_BOX_WIDTH * 3,
+          top: BOX_TOP + BIG_BOX_WIDTH,
+        },
+        [10]: {
+          ...prev[10],
+          left: TEMP_LEFT + BIG_BOX_WIDTH * 3,
+          top: BOX_TOP + BIG_BOX_WIDTH + NORMAL_BOX_WIDTH,
+        },
       }));
     }
-    if (step == 7) {
+    if (step == 13) {
       setKotak((prev) => ({
         ...kotak,
-        [5]: { title: "X", left: BOX_LEFT + 300, top: BOX_TOP + 128 },
-        [6]: {
+        [11]: { title: "X", left: BOX_LEFT + 300, top: BOX_TOP + 128 },
+        [12]: {
           title: "-X",
           left: BOX_LEFT + NORMAL_BOX_WIDTH + 300,
           top: BOX_TOP + 128,
         },
       }));
     }
-    if (step >= 8) {
-      const TEMP_LEFT = step >= 11 ? BIG_BOX_WIDTH * 2 : BOX_LEFT;
+    if (step >= 14) {
+      const TEMP_LEFT =
+        step >= 17 ? BIG_BOX_WIDTH * 2 : BOX_LEFT - BIG_BOX_WIDTH * 2;
       setKotak((prev) => ({
         ...kotak,
         [1]: { ...prev[1], left: TEMP_LEFT, top: BOX_TOP },
@@ -111,47 +174,77 @@ const Playground = ({ isSnapToGrid }) => {
         },
         [3]: {
           ...prev[3],
-          left: TEMP_LEFT + BIG_BOX_WIDTH + NORMAL_BOX_WIDTH,
-          top: BOX_TOP + BIG_BOX_WIDTH,
-        },
-        [4]: {
-          ...prev[4],
-          left: TEMP_LEFT + BIG_BOX_WIDTH,
-          top: BOX_TOP + BIG_BOX_WIDTH,
-        },
-        [5]: {
-          title: "-X",
-          left: TEMP_LEFT + BIG_BOX_WIDTH + NORMAL_BOX_WIDTH,
+          left: TEMP_LEFT + BIG_BOX_WIDTH * 2,
           top: BOX_TOP,
         },
-        [6]: {
+        [4]: {
           title: "X ",
           left: TEMP_LEFT,
           top: BOX_TOP + BIG_BOX_WIDTH,
         },
+        [5]: {
+          title: "X ",
+          left: TEMP_LEFT + BIG_BOX_WIDTH,
+          top: BOX_TOP + BIG_BOX_WIDTH,
+        },
+        [6]: {
+          title: "X ",
+          left: TEMP_LEFT + BIG_BOX_WIDTH * 2,
+          top: BOX_TOP + BIG_BOX_WIDTH,
+        },
+        [7]: {
+          title: "X ",
+          left: TEMP_LEFT,
+          top: BOX_TOP + BIG_BOX_WIDTH + NORMAL_BOX_WIDTH,
+        },
+        [8]: {
+          title: "X ",
+          left: TEMP_LEFT + BIG_BOX_WIDTH,
+          top: BOX_TOP + BIG_BOX_WIDTH + NORMAL_BOX_WIDTH,
+        },
+        [9]: {
+          ...prev[9],
+          left: TEMP_LEFT + BIG_BOX_WIDTH * 3,
+          top: BOX_TOP + BIG_BOX_WIDTH,
+        },
+        [10]: {
+          ...prev[10],
+          left: TEMP_LEFT + BIG_BOX_WIDTH * 3,
+          top: BOX_TOP + BIG_BOX_WIDTH + NORMAL_BOX_WIDTH,
+        },
+        [11]: {
+          title: "X ",
+          left: TEMP_LEFT + BIG_BOX_WIDTH * 2,
+          top: BOX_TOP + BIG_BOX_WIDTH + NORMAL_BOX_WIDTH,
+        },
+        [12]: {
+          title: "-X",
+          left: TEMP_LEFT + BIG_BOX_WIDTH * 3,
+          top: BOX_TOP,
+        },
       }));
     }
 
-    if (step == 9) {
+    if (step == 15) {
       setPreview(true);
     } else {
       setPreview(false);
     }
-    if (step >= 10) {
+    if (step >= 16) {
       setPreviewPL(true);
     } else {
       setPreviewPL(false);
     }
-    if (step >= 11) {
+    if (step >= 17) {
       setPreviewHasil((value) => ({
         ...value,
         display: true,
         step: 1,
       }));
-      if (step >= 12) {
+      if (step >= 18) {
         setPreviewHasil((value) => ({
           ...value,
-          step: step - 10,
+          step: step - 16,
         }));
       }
     } else {
@@ -242,7 +335,7 @@ const Playground = ({ isSnapToGrid }) => {
         >
           <div className="px-3 py-2 rounded-xl shadow-xl ring-1">Soal</div>
           <h1 className="text-3xl">
-            <Latex>$X^2 - X - 2$</Latex>
+            <Latex>$3X^2 + 5X - 2$</Latex>
           </h1>
         </div>
 
@@ -250,7 +343,8 @@ const Playground = ({ isSnapToGrid }) => {
           <div
             className="absolute text-black transition-all duration-1000"
             style={{
-              left: step >= 11 ? BIG_BOX_WIDTH * 2 : BOX_LEFT,
+              left:
+                step >= 17 ? BIG_BOX_WIDTH * 2 : BOX_LEFT - BIG_BOX_WIDTH * 2,
               top: BOX_TOP,
             }}
           >
@@ -265,13 +359,19 @@ const Playground = ({ isSnapToGrid }) => {
                   <div className="bg-black translate-y-0 w-3/4 h-[1px]"></div>
                 </div>
               </div>
-              <div className="absolute w-[64px] translate-x-[128px] -translate-y-8">
+              <div className="absolute -translate-y-8 translate-x-32 w-[128px]">
                 <div className="w-full flex flex-col items-center justify-center">
-                  <Latex>$-1$</Latex>
+                  <Latex>$X$</Latex>
                   <div className="bg-black translate-y-0 w-3/4 h-[1px]"></div>
                 </div>
               </div>
-              <div className="absolute w-[64px] translate-x-48 -translate-y-8">
+              <div className="absolute -translate-y-8 translate-x-64 w-[128px]">
+                <div className="w-full flex flex-col items-center justify-center">
+                  <Latex>$X$</Latex>
+                  <div className="bg-black translate-y-0 w-3/4 h-[1px]"></div>
+                </div>
+              </div>
+              <div className="absolute w-[64px] translate-x-96 -translate-y-8">
                 <div className="w-full flex flex-col items-center justify-center">
                   <Latex>$-1$</Latex>
                   <div className="bg-black translate-y-0 w-3/4 h-[1px]"></div>
@@ -279,17 +379,24 @@ const Playground = ({ isSnapToGrid }) => {
               </div>
               {/* HORIZONTAL */}
               {/* VERTIKAL */}
+
+              <div className="absolute -translate-x-8 h-32 flex items-center">
+                <div className="-rotate-90">
+                  <Latex>$X$</Latex>
+                </div>
+                <div className="bg-black translate-x-1 h-3/4 w-[1px]"></div>
+              </div>
               <div className="absolute translate-y-[128px] -translate-x-8 h-[64px] flex items-center">
                 <div className="-rotate-90">
                   <Latex>$1$</Latex>
                 </div>
                 <div className="bg-black translate-x-4 h-3/4 w-[1px]"></div>
               </div>
-              <div className="absolute -translate-x-8 h-32 flex items-center">
+              <div className="absolute translate-y-48 -translate-x-8 h-[64px] flex items-center">
                 <div className="-rotate-90">
-                  <Latex>$X$</Latex>
+                  <Latex>$1$</Latex>
                 </div>
-                <div className="bg-black translate-x-1 h-3/4 w-[1px]"></div>
+                <div className="bg-black translate-x-4 h-3/4 w-[1px]"></div>
               </div>
               {/* VERTIKAL */}
             </div>
@@ -298,16 +405,16 @@ const Playground = ({ isSnapToGrid }) => {
               style={{ display: previewPL ? "block" : "none" }}
             >
               {/* HORIZONTAL */}
-              <div className="absolute -translate-y-8 w-[16rem]">
+              <div className="absolute -translate-y-8 w-[30rem]">
                 <div className="w-full flex flex-col items-center justify-center">
-                  <Latex>$P = X - 2$</Latex>
+                  <Latex>$P = 3X - 1$</Latex>
                 </div>
               </div>
 
               {/* VERTIKAL */}
-              <div className="absolute -translate-x-16 h-48 flex items-center">
+              <div className="absolute -translate-x-16 h-64 flex items-center">
                 <div className="-rotate-90 w-max">
-                  <Latex>$L = X + 1$</Latex>
+                  <Latex>$L = X + 2$</Latex>
                 </div>
               </div>
             </div>
@@ -329,10 +436,10 @@ const Playground = ({ isSnapToGrid }) => {
                 >
                   <h1 className="text-2xl font-medium">Hasil</h1>
                   <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
-                    <Latex>$P = X - 2$</Latex>
+                    <Latex>$P = 3X - 1$</Latex>
                   </div>
                   <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
-                    <Latex>$L = X + 1$</Latex>
+                    <Latex>$L = X + 2$</Latex>
                   </div>
                 </div>
                 <div
@@ -350,7 +457,7 @@ const Playground = ({ isSnapToGrid }) => {
                 >
                   0 =
                   <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
-                    <Latex>$(X-2)(X+1)$</Latex>
+                    <Latex>$(3X - 1)(X + 2)$</Latex>
                   </div>
                 </div>
               </div>
@@ -364,24 +471,24 @@ const Playground = ({ isSnapToGrid }) => {
                   <h2 className="text-2xl font-medium">Akar</h2>
                   <div className="flex items-center gap-4">
                     <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
-                      <Latex>$X-2 = 0$</Latex>
+                      <Latex>$3X-1 = 0$</Latex>
                     </div>
                     <span className="text-lg">
                       <Latex>$\vee$</Latex>
                     </span>
                     <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
-                      <Latex>$X+1 = 0$</Latex>
+                      <Latex>$X+2 = 0$</Latex>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
-                      <Latex>$X_{1} = 2$</Latex>
+                      <Latex>$X_{1} = 1/3$</Latex>
                     </div>
                     <span className="text-lg">
                       <Latex>$\vee$</Latex>
                     </span>
                     <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
-                      <Latex>$X_{2} = -1$</Latex>
+                      <Latex>$X_{2} = -2$</Latex>
                     </div>
                   </div>
                 </div>
@@ -393,7 +500,7 @@ const Playground = ({ isSnapToGrid }) => {
                   }}
                 >
                   <Latex>
-                    $Hp = ${"{"}$ 2, -1 $ {"}"}
+                    $Hp = ${"{"}$ 1/3, -2 $ {"}"}
                   </Latex>
                 </div>
               </div>
@@ -401,7 +508,7 @@ const Playground = ({ isSnapToGrid }) => {
           </div>
           <div
             className="absolute right-16 items-center h-full animate-popup"
-            style={{ display: step == 7 ? "flex" : "none" }}
+            style={{ display: step == 13 ? "flex" : "none" }}
           >
             <div className="flex flex-row items-start gap-4 p-6 bg-slate-100 rounded-xl shadow-xl ring-1 ring-slate-300">
               <div className="flex flex-col items-start gap-4">
