@@ -19,7 +19,7 @@ const NORMAL_BOX_WIDTH = 64;
 const BIG_BOX_WIDTH = 2 * NORMAL_BOX_WIDTH;
 const BOX_TOP = 192;
 const GAP = 32;
-const TOTAL_STEP = 13;
+const TOTAL_STEP = 14;
 
 const Playground = ({ isSnapToGrid }) => {
   const [step, setStep] = useState(0);
@@ -88,7 +88,7 @@ const Playground = ({ isSnapToGrid }) => {
         },
       }));
     }
-    if (step == 13) {
+    if (step == 14) {
       setKotak((prev) => ({
         [1]: {
           ...prev[1],
@@ -199,6 +199,45 @@ const Playground = ({ isSnapToGrid }) => {
 
         <div ref={dropRef} style={styles} className="transition-all">
           <div
+            className="absolute z-10"
+            style={{
+              left: BOX_LEFT - BIG_BOX_WIDTH * 4,
+              top: BOX_TOP,
+            }}
+          >
+            <div
+              className="relative animate-popup"
+              style={{
+                display: step == 13 ? "block" : "none",
+              }}
+            >
+              <div
+                className="w-1 h-52 bg-black absolute rotate-[-53deg] translate-x-20 -translate-y-10"
+                style={{
+                  left: NORMAL_BOX_WIDTH + GAP,
+                }}
+              ></div>
+              <div
+                className="w-1 h-52 bg-black absolute rotate-[-53deg] translate-x-20 -translate-y-10"
+                style={{
+                  left: NORMAL_BOX_WIDTH * 3 + GAP * 3,
+                }}
+              ></div>
+              <div
+                className="w-1 h-20 bg-black absolute rotate-[-45deg] translate-x-8 -translate-y-2"
+                style={{
+                  left: NORMAL_BOX_WIDTH * 5 + GAP * 5,
+                }}
+              ></div>
+              <div
+                className="w-1 h-20 bg-black absolute rotate-[-45deg] translate-x-8 -translate-y-2"
+                style={{
+                  left: NORMAL_BOX_WIDTH * 6 + GAP * 6,
+                }}
+              ></div>
+            </div>
+          </div>
+          <div
             className="absolute text-black transition-all duration-1000"
             style={{
               left: step >= 9 ? BIG_BOX_WIDTH * 2 : BOX_LEFT,
@@ -284,7 +323,7 @@ const Playground = ({ isSnapToGrid }) => {
                       </div>
                     </>
                   )}
-                  {step >= 13 && (
+                  {step >= 14 && (
                     <>
                       <Latex>$ \downarrow $</Latex>
                       <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg animate-popup">
@@ -292,6 +331,26 @@ const Playground = ({ isSnapToGrid }) => {
                       </div>
                     </>
                   )}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="absolute left-48 top-40 items-center h-full animate-popup"
+            style={{ display: step == 13 ? "flex" : "none" }}
+          >
+            <div className="flex flex-row items-start gap-4 p-3 bg-slate-100 rounded-xl shadow-xl ring-1 ring-slate-300">
+              <div className="flex flex-col items-start gap-4">
+                <div className="flex flex-col items-center gap-4">
+                  <h1 className="text-xl font-bold">Keterangan</h1>
+                  <p className="w-[28rem] text-sm text-justify">
+                    Dengan prinsip nol blok, karena blok x, blok -x, dan blok
+                    satuan saling menghabiskan, maka blok tersisa adalah 1 blok
+                    x dan 3 blok satuan.
+                  </p>
+                  <p className="font-bold italic">
+                    {"("}Prinsip Nol Blok{")"}
+                  </p>
                 </div>
               </div>
             </div>

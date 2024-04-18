@@ -50,9 +50,10 @@ const Kotak = ({ title }) => {
         ...styles,
         width: widthFromSize,
         height: heightFromSize,
+        display: !title && "none",
       }}
     >
-      <Latex>${title}$</Latex>
+      <Latex>${title ? title.toLowerCase() : null}$</Latex>
     </div>
   );
 };

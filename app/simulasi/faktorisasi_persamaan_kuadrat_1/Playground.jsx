@@ -198,7 +198,7 @@ const Playground = ({ isSnapToGrid }) => {
         >
           <div className="px-3 py-2 rounded-xl shadow-xl ring-1">Soal</div>
           <h1 className="text-3xl">
-            <Latex>$X^2 + 2X + 1$</Latex>
+            <Latex>$x^2 + 2x + 1$</Latex>
           </h1>
         </div>
 
@@ -217,7 +217,7 @@ const Playground = ({ isSnapToGrid }) => {
               {/* HORIZONTAL */}
               <div className="absolute -translate-y-8 w-[128px]">
                 <div className="w-full flex flex-col items-center justify-center">
-                  <Latex>$X$</Latex>
+                  <Latex>$x$</Latex>
                   <div className="bg-black translate-y-0 w-3/4 h-[1px]"></div>
                 </div>
               </div>
@@ -237,7 +237,7 @@ const Playground = ({ isSnapToGrid }) => {
               </div>
               <div className="absolute -translate-x-8 h-32 flex items-center">
                 <div className="-rotate-90">
-                  <Latex>$X$</Latex>
+                  <Latex>$x$</Latex>
                 </div>
                 <div className="bg-black translate-x-1 h-3/4 w-[1px]"></div>
               </div>
@@ -250,14 +250,14 @@ const Playground = ({ isSnapToGrid }) => {
               {/* HORIZONTAL */}
               <div className="absolute -translate-y-8 w-[192px]">
                 <div className="w-full flex flex-col items-center justify-center">
-                  <Latex>$P = X + 1$</Latex>
+                  <Latex>$P = x + 1$</Latex>
                 </div>
               </div>
 
               {/* VERTIKAL */}
               <div className="absolute -translate-x-16 h-48 flex items-center">
                 <div className="-rotate-90 w-max">
-                  <Latex>$L = X + 1$</Latex>
+                  <Latex>$L = x + 1$</Latex>
                 </div>
               </div>
             </div>
@@ -279,10 +279,10 @@ const Playground = ({ isSnapToGrid }) => {
                 >
                   <h1 className="text-2xl font-medium">Hasil</h1>
                   <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
-                    <Latex>$P = X + 1$</Latex>
+                    <Latex>$P = x + 1$</Latex>
                   </div>
                   <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
-                    <Latex>$L = X + 1$</Latex>
+                    <Latex>$L = x + 1$</Latex>
                   </div>
                 </div>
                 <div
@@ -300,7 +300,7 @@ const Playground = ({ isSnapToGrid }) => {
                 >
                   0 =
                   <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
-                    <Latex>$(X+1)(X+1)$</Latex>
+                    <Latex>$(x+1)(x+1)$</Latex>
                   </div>
                 </div>
               </div>
@@ -314,24 +314,24 @@ const Playground = ({ isSnapToGrid }) => {
                   <h2 className="text-2xl font-medium">Akar</h2>
                   <div className="flex items-center gap-4">
                     <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
-                      <Latex>$X+1 = 0$</Latex>
+                      <Latex>$x+1 = 0$</Latex>
                     </div>
                     <span className="text-lg">
                       <Latex>$\vee$</Latex>
                     </span>
                     <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
-                      <Latex>$X+1 = 0$</Latex>
+                      <Latex>$x+1 = 0$</Latex>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
-                      <Latex>$X_{1} = -1$</Latex>
+                      <Latex>$x_{1} = -1$</Latex>
                     </div>
                     <span className="text-lg">
                       <Latex>$\vee$</Latex>
                     </span>
                     <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
-                      <Latex>$X_{2} = -1$</Latex>
+                      <Latex>$x_{2} = -1$</Latex>
                     </div>
                   </div>
                 </div>

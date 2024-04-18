@@ -27,7 +27,7 @@ const SimulasiPage = () => {
         />
         {/* menentukan hasil operasi aljabar dengan menggunakan blok aljabar */}
         <Card
-          id="perkalian_suku"
+          id="perkalian_dua_suku"
           variant={"purple"}
           title="Perkalian Dua Suku"
           penjelasan="Menentukan hasil perkalian suku dua dan suku dua menggunakan blok Aljabar"

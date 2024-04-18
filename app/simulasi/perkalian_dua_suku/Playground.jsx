@@ -17,9 +17,9 @@ const styles = {
 
 const NORMAL_BOX_WIDTH = 64;
 const BIG_BOX_WIDTH = 2 * NORMAL_BOX_WIDTH;
-const BOX_TOP = 224;
+const BOX_TOP = 256;
 const GAP = 32;
-const TOTAL_STEP = 13;
+const TOTAL_STEP = 22;
 
 const Playground = ({ isSnapToGrid }) => {
   const [step, setStep] = useState(0);
@@ -31,111 +31,137 @@ const Playground = ({ isSnapToGrid }) => {
   });
   const [kotak, setKotak] = useState({});
   const listKotak = {
-    a: { title: "X^2", left: 0, top: 0 },
-    b: { title: "X", left: 128 + 16, top: 0 },
+    a: { title: "X ", left: 0, top: 0 },
+    b: { title: "-1", left: 128 + 16, top: 0 },
     c: { title: "1", left: 128 + 64 + 32, top: 0 },
     // d: { title: "X ", left: 128 + 16, top: 0 },
   };
 
   const screenSize = useScreenSize();
-  let BOX_LEFT =
-    Math.round(screenSize.width / 2 / 32) * 32 -
-    (BIG_BOX_WIDTH + NORMAL_BOX_WIDTH) / 2;
+  let BOX_LEFT = Math.round(screenSize.width / 2 / 32) * 32 - BIG_BOX_WIDTH;
   const kondisiPerStep = (step) => {
     const INITIAL_LEFT = BOX_LEFT - BIG_BOX_WIDTH;
     if (step == 1) {
       setKotak({});
     }
-    if (step == 2) {
+    if (step == 4) {
       addBox("1", "X ", BOX_LEFT, BOX_TOP - NORMAL_BOX_WIDTH - GAP);
-    } else if (step == 3) {
-      addBox("2", "X", INITIAL_LEFT + BIG_BOX_WIDTH + GAP, BOX_TOP);
-    } else if (step == 4) {
-      addBox(
-        "3",
-        "X",
-        INITIAL_LEFT + BIG_BOX_WIDTH + NORMAL_BOX_WIDTH + GAP * 2,
-        BOX_TOP
-      );
     } else if (step == 5) {
       addBox(
-        "4",
+        "2",
+        "-1",
+        BOX_LEFT + BIG_BOX_WIDTH,
+        BOX_TOP - NORMAL_BOX_WIDTH - GAP
+      );
+    } else if (step == 6) {
+      addBox(
+        "3",
+        "-1",
+        BOX_LEFT + BIG_BOX_WIDTH + NORMAL_BOX_WIDTH,
+        BOX_TOP - NORMAL_BOX_WIDTH - GAP
+      );
+    } else if (step == 8) {
+      addBox("4", "1", BOX_LEFT - NORMAL_BOX_WIDTH - GAP, BOX_TOP);
+    } else if (step == 9) {
+      addBox(
+        "5",
         "1",
-        INITIAL_LEFT + BIG_BOX_WIDTH + 2 * NORMAL_BOX_WIDTH + GAP * 3,
-        BOX_TOP
+        BOX_LEFT - NORMAL_BOX_WIDTH - GAP,
+        BOX_TOP + NORMAL_BOX_WIDTH
+      );
+    } else if (step == 10) {
+      addBox(
+        "6",
+        "1",
+        BOX_LEFT - NORMAL_BOX_WIDTH - GAP,
+        BOX_TOP + NORMAL_BOX_WIDTH * 2
+      );
+    } else if (step == 12) {
+      addBox("7", "X ", BOX_LEFT, BOX_TOP);
+    } else if (step == 13) {
+      addBox("10", "X ", BOX_LEFT, BOX_TOP + NORMAL_BOX_WIDTH);
+    } else if (step == 14) {
+      addBox("13", "X ", BOX_LEFT, BOX_TOP + NORMAL_BOX_WIDTH * 2);
+    } else if (step == 16) {
+      addBox("8", "-1", BOX_LEFT + BIG_BOX_WIDTH, BOX_TOP);
+    } else if (step == 17) {
+      addBox("9", "-1", BOX_LEFT + BIG_BOX_WIDTH + NORMAL_BOX_WIDTH, BOX_TOP);
+    } else if (step == 18) {
+      addBox("11", "-1", BOX_LEFT + BIG_BOX_WIDTH, BOX_TOP + NORMAL_BOX_WIDTH);
+    } else if (step == 19) {
+      addBox(
+        "12",
+        "-1",
+        BOX_LEFT + BIG_BOX_WIDTH + NORMAL_BOX_WIDTH,
+        BOX_TOP + NORMAL_BOX_WIDTH
+      );
+    } else if (step == 20) {
+      addBox(
+        "14",
+        "-1",
+        BOX_LEFT + BIG_BOX_WIDTH,
+        BOX_TOP + NORMAL_BOX_WIDTH * 2
+      );
+    } else if (step == 21) {
+      addBox(
+        "15",
+        "-1",
+        BOX_LEFT + BIG_BOX_WIDTH + NORMAL_BOX_WIDTH,
+        BOX_TOP + NORMAL_BOX_WIDTH * 2
       );
     }
-    // if (step == 2) {
-    //   addBox("1", "X^2", INITIAL_LEFT, BOX_TOP);
-    // } else if (step == 3) {
-    //   addBox("2", "X", INITIAL_LEFT + BIG_BOX_WIDTH + GAP, BOX_TOP);
-    // } else if (step == 4) {
-    //   addBox(
-    //     "3",
-    //     "X",
-    //     INITIAL_LEFT + BIG_BOX_WIDTH + NORMAL_BOX_WIDTH + GAP * 2,
-    //     BOX_TOP
-    //   );
-    // } else if (step == 5) {
-    //   addBox(
-    //     "4",
-    //     "1",
-    //     INITIAL_LEFT + BIG_BOX_WIDTH + 2 * NORMAL_BOX_WIDTH + GAP * 3,
-    //     BOX_TOP
-    //   );
-    // }
 
-    if (step >= 6) {
-      const TEMP_LEFT = step >= 9 ? BIG_BOX_WIDTH * 2 : BOX_LEFT;
-      setKotak((prev) => ({
-        ...kotak,
-        [1]: { ...prev[1], left: TEMP_LEFT, top: BOX_TOP },
-        [2]: {
-          title: "X ",
-          left: TEMP_LEFT,
-          top: BOX_TOP + BIG_BOX_WIDTH,
-        },
-        [3]: {
-          ...prev[3],
-          left: TEMP_LEFT + BIG_BOX_WIDTH,
-          top: BOX_TOP,
-        },
-        [4]: {
-          ...prev[4],
-          left: TEMP_LEFT + BIG_BOX_WIDTH,
-          top: BOX_TOP + BIG_BOX_WIDTH,
-        },
-      }));
-    }
-    if (step == 7) {
-      setPreview(true);
-    } else {
-      setPreview(false);
-    }
-    if (step >= 8) {
-      setPreviewPL(true);
-    } else {
-      setPreviewPL(false);
-    }
-    if (step >= 9) {
-      setPreviewHasil((value) => ({
-        ...value,
-        display: true,
-        step: 1,
-      }));
-      if (step >= 10) {
-        setPreviewHasil((value) => ({
-          ...value,
-          step: step - 8,
-        }));
-      }
-    } else {
-      setPreviewHasil((value) => ({
-        ...value,
-        display: false,
-        step: 0,
-      }));
-    }
+    // if (step >= 10) {
+    //   const TEMP_LEFT = step >= 9 ? BIG_BOX_WIDTH * 2 : BOX_LEFT;
+    //   setKotak((prev) => ({
+    //     ...kotak,
+    //     [1]: { ...prev[1], left: TEMP_LEFT, top: BOX_TOP },
+    //     [2]: {
+    //       title: "X ",
+    //       left: TEMP_LEFT,
+    //       top: BOX_TOP + BIG_BOX_WIDTH,
+    //     },
+    //     [3]: {
+    //       ...prev[3],
+    //       left: TEMP_LEFT + BIG_BOX_WIDTH,
+    //       top: BOX_TOP,
+    //     },
+    //     [4]: {
+    //       ...prev[4],
+    //       left: TEMP_LEFT + BIG_BOX_WIDTH,
+    //       top: BOX_TOP + BIG_BOX_WIDTH,
+    //     },
+    //   }));
+    // }
+    // if (step == 7) {
+    //   setPreview(true);
+    // } else {
+    //   setPreview(false);
+    // }
+    // if (step >= 8) {
+    //   setPreviewPL(true);
+    // } else {
+    //   setPreviewPL(false);
+    // }
+    // if (step >= 9) {
+    //   setPreviewHasil((value) => ({
+    //     ...value,
+    //     display: true,
+    //     step: 1,
+    //   }));
+    //   if (step >= 10) {
+    //     setPreviewHasil((value) => ({
+    //       ...value,
+    //       step: step - 8,
+    //     }));
+    //   }
+    // } else {
+    //   setPreviewHasil((value) => ({
+    //     ...value,
+    //     display: false,
+    //     step: 0,
+    //   }));
+    // }
   };
 
   const addBox = (id, title, left, top) => {
@@ -217,11 +243,28 @@ const Playground = ({ isSnapToGrid }) => {
         >
           <div className="px-3 py-2 rounded-xl shadow-xl ring-1">Soal</div>
           <h1 className="text-3xl">
-            <Latex>$(x+2) . 3$</Latex>
+            <Latex>$(x-2) . 3$</Latex>
           </h1>
         </div>
 
         <div ref={dropRef} style={styles} className="transition-all">
+          <div
+            className="absolute"
+            style={{
+              left: BOX_LEFT,
+              top: BOX_TOP,
+            }}
+          >
+            <div className="relative">
+              <div
+                className="animate-popup"
+                style={{ display: step > 1 ? "block" : "none" }}
+              >
+                <div className="absolute -translate-y-24 -translate-x-4 w-0.5 h-[22rem] bg-black"></div>
+                <div className="absolute -translate-y-4 -translate-x-24 w-[28rem] h-0.5 bg-black"></div>
+              </div>
+            </div>
+          </div>
           <div
             className="absolute text-black transition-all duration-1000"
             style={{
@@ -286,84 +329,57 @@ const Playground = ({ isSnapToGrid }) => {
           ))}
           <div
             className="absolute right-16 items-center h-full animate-popup"
-            style={{ display: previewHasil.display ? "flex" : "none" }}
+            style={{ display: step >= 3 ? "flex" : "none" }}
           >
             <div className="flex flex-row items-start gap-4 p-6 bg-slate-100 rounded-xl shadow-xl ring-1 ring-slate-300">
               <div className="flex flex-col items-start gap-4">
                 <div
-                  className=" flex-col items-center gap-4"
+                  className=" flex-col items-center gap-2"
                   style={{
-                    display: previewHasil.step > 0 ? "flex" : "none",
+                    display: "flex",
                   }}
                 >
                   <h1 className="text-2xl font-medium">Hasil</h1>
-                  <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
-                    <Latex>$P = x + 1$</Latex>
-                  </div>
-                  <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
-                    <Latex>$L = x + 1$</Latex>
-                  </div>
-                </div>
-                <div
-                  className=" items-center gap-2 font-medium animate-popup"
-                  style={{ display: previewHasil.step > 1 ? "flex" : "none" }}
-                >
-                  Luas Persegi Panjang =
-                  <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
-                    <Latex>$P . L$</Latex>
-                  </div>
-                </div>
-                <div
-                  className="flex items-center gap-2 font-medium text-lg animate-popup"
-                  style={{ display: previewHasil.step > 2 ? "flex" : "none" }}
-                >
-                  0 =
-                  <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
-                    <Latex>$(x+1)(x+1)$</Latex>
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col items-start gap-4">
-                <div
-                  className="flex-col items-start gap-4 animate-popup"
-                  style={{
-                    display: previewHasil.step > 3 ? "flex" : "none",
-                  }}
-                >
-                  <h2 className="text-2xl font-medium">Akar</h2>
-                  <div className="flex items-center gap-4">
-                    <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
-                      <Latex>$x+1 = 0$</Latex>
-                    </div>
-                    <span className="text-lg">
-                      <Latex>$\vee$</Latex>
-                    </span>
-                    <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
-                      <Latex>$x+1 = 0$</Latex>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
-                      <Latex>$x_{1} = -1$</Latex>
-                    </div>
-                    <span className="text-lg">
-                      <Latex>$\vee$</Latex>
-                    </span>
-                    <div className="bg-white rounded-lg px-3 py-1 ring-1 text-lg">
-                      <Latex>$x_{2} = -1$</Latex>
-                    </div>
-                  </div>
-                </div>
 
-                <div
-                  className="bg-white rounded-lg px-3 py-1 ring-1 text-lg animate-popup"
-                  style={{
-                    display: previewHasil.step > 4 ? "block" : "none",
-                  }}
-                >
-                  <Latex>
-                    $Hp = ${"{"}$ -1, -1 $ {"}"}
-                  </Latex>
+                  {step >= 7 ? (
+                    <div
+                      key={1}
+                      className="bg-white rounded-lg px-3 py-1 ring-1 text-lg animate-popup"
+                    >
+                      <Latex>$(x-2).3$</Latex>
+                    </div>
+                  ) : (
+                    <div
+                      key={2}
+                      className="bg-white rounded-lg px-3 py-1 ring-1 text-lg animate-popup"
+                    >
+                      <Latex>$(x-2)$</Latex>
+                    </div>
+                  )}
+
+                  {step >= 15 ? (
+                    <>
+                      <Latex>$ \downarrow $</Latex>
+                      <div
+                        key={1}
+                        className="bg-white rounded-lg px-3 py-1 ring-1 text-lg animate-popup"
+                      >
+                        <Latex>$3x+6$</Latex>
+                      </div>
+                    </>
+                  ) : (
+                    step >= 11 && (
+                      <>
+                        <Latex>$ \downarrow $</Latex>
+                        <div
+                          key={2}
+                          className="bg-white rounded-lg px-3 py-1 ring-1 text-lg animate-popup"
+                        >
+                          <Latex>$3x$</Latex>
+                        </div>
+                      </>
+                    )
+                  )}
                 </div>
               </div>
             </div>

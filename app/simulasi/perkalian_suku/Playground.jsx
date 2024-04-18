@@ -7,7 +7,11 @@ import { useDrop } from "react-dnd";
 import { snapToGrid } from "@/app/components/snapToGrid";
 import Latex from "react-latex-next";
 import useScreenSize from "@/app/utils/useScreenSize";
-import {getEquation, getEquationPenjabaran, getPenjabaran} from "@/app/simulasi/perkalian_suku/getEquation";
+import {
+  getEquation,
+  getEquationPenjabaran,
+  getPenjabaran,
+} from "@/app/simulasi/perkalian_suku/getEquation";
 
 const styles = {
   width: "100%",
@@ -38,12 +42,13 @@ const Playground = ({ isSnapToGrid }) => {
     c: { title: "1", left: 128 + 64 + 32, top: 0 },
     d: { title: "-X", left: -64 - 16, top: 0 },
     e: { title: "-1", left: 128 + 64 + 64 + 48, top: 0 },
+    f: { title: "X ", left: 128 + 64 + 64 + 64 + 64, top: 0 },
   };
 
   const screenSize = useScreenSize();
   let BOX_LEFT =
-      Math.round(screenSize.width / 2 / 32) * 32 -
-      (BIG_BOX_WIDTH + NORMAL_BOX_WIDTH) / 2;
+    Math.round(screenSize.width / 2 / 32) * 32 -
+    (BIG_BOX_WIDTH + NORMAL_BOX_WIDTH) / 2;
 
   const addBox = (id, title, left, top) => {
     setKotak(
@@ -109,7 +114,7 @@ const Playground = ({ isSnapToGrid }) => {
     }
   }, [drop]);
   useEffect(() => {
-    setResult(getEquation(kotak))
+    setResult(getEquation(kotak));
   }, [kotak]);
 
   return (
@@ -119,19 +124,39 @@ const Playground = ({ isSnapToGrid }) => {
           className="absolute flex flex-col gap-3 items-center text-black bg-white   transition-all duration-1000 -translate-y-1/2"
           style={{
             top: true // step > 0
-                ? "8rem" : "50%",
+              ? "8rem"
+              : "50%",
             // transform: true //previewHasil.display
             //   ? "translateX(0) translateY(-50%)"
             //   : "translateX(-50%) translateY(-50%)",
             left: false //previewHasil.display
-                ? "20%" : "45%",
+              ? "20%"
+              : "45%",
           }}
         >
           <div className="px-3 py-2 rounded-xl shadow-xl ring-1">Jawaban</div>
           <h1 className="text-3xl">
-            <Latex>${getPenjabaran(result.EqX,result.EqX2,result.EqConst,result.EqConst2)}$</Latex>
-            <br/>
-            <Latex>${getEquationPenjabaran(result.EqX,result.EqX2,result.EqConst,result.EqConst2)}$</Latex>
+            <Latex>
+              $
+              {getPenjabaran(
+                result.EqX,
+                result.EqX2,
+                result.EqConst,
+                result.EqConst2
+              )}
+              $
+            </Latex>
+            <br />
+            <Latex>
+              $
+              {getEquationPenjabaran(
+                result.EqX,
+                result.EqX2,
+                result.EqConst,
+                result.EqConst2
+              )}
+              $
+            </Latex>
           </h1>
         </div>
 
@@ -295,7 +320,7 @@ const Playground = ({ isSnapToGrid }) => {
                 addBox(
                   Math.random().toString(36).substring(7),
                   listKotak[key].title,
-                  listKotak[key].left+64+16,
+                  listKotak[key].left + 64 + 16,
                   listKotak[key].top
                 )
               }

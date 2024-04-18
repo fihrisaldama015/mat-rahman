@@ -331,7 +331,7 @@ const Playground = ({ isSnapToGrid }) => {
                 </div>
                 <div className="bg-black translate-x-4 h-3/4 w-[1px]"></div>
               </div>
-              <div className="absolute -translate-x-8 h-32 flex items-center">
+              <div className="absolute -translate-x-7 h-32 flex items-center">
                 <div className="-rotate-90">
                   <Latex>$X$</Latex>
                 </div>
