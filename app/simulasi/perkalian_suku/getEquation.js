@@ -8,6 +8,7 @@ function boxtitleToEquation(arrBox, isTop) {
     if(arrBox[box].substring(0, 1) === "-"){
       arrBox[box] = arrBox[box].substring(1);
     }
+
     switch (arrBox[box]) {
       case "X^2":
         EqX += 1;
@@ -31,20 +32,18 @@ function getEquationTitleFromArr(arr, isTop) {
   let result = [];
   const tempItems = arr[0];
   for (let i = 0; i < arr.length; i++) {
+    console.log(arr[i])
     if (isTop) {
       if (tempItems.top === arr[i].top) {
         result.push(arr[i].title);
-      }else{
-        break;
       }
     } else {
       if (tempItems.left === arr[i].left) {
         result.push(arr[i].title);
-      }else{
-        break;
       }
     }
   }
+  console.log(isTop, result)
   return result;
 }
 function splitPlusMinus(arr, isMin = false) {
@@ -73,7 +72,8 @@ export function getEquation(arr) {
   // ======= PLUS SECTION =======
   const findTopPlus = plusArr.sort((a, b) => a.top - b.top); // ascending sort using top component
   const findLeftPlus = plusArr.sort((a, b) => a.left - b.left); // ascending sort using left component
-
+  // console.log("ini Top :",findTopPlus)
+  // console.log("ini left :",findLeftPlus)
   const firstEqPlus = boxtitleToEquation(
     getEquationTitleFromArr(findTopPlus, true),
     true
@@ -95,8 +95,8 @@ export function getEquation(arr) {
     getEquationTitleFromArr(findLeftMinus, false),
     false
   );
-  console.log("ini minus:",secondEqMinus,firstEqMinus)
-  console.log("ini plus:",secondEqPlus,firstEqPlus)
+  // console.log("ini minus:",secondEqMinus,firstEqMinus)
+  // console.log("ini plus:",secondEqPlus,firstEqPlus)
   // ======= MERGE SECTION =======
   const EqX = firstEqPlus.EqX
   const EqConst = firstEqPlus.EqConst - firstEqMinus.EqConst;
