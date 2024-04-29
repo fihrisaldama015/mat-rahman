@@ -5,7 +5,7 @@ function boxtitleToEquation(arrBox, isTop) {
   let EqConst = 0;
 
   for (const box in arrBox) {
-    if(arrBox[box].substring(0, 1) === "-"){
+    if (arrBox[box].substring(0, 1) === "-") {
       arrBox[box] = arrBox[box].substring(1);
     }
 
@@ -32,7 +32,7 @@ function getEquationTitleFromArr(arr, isTop) {
   let result = [];
   const tempItems = arr[0];
   for (let i = 0; i < arr.length; i++) {
-    console.log(arr[i])
+    console.log(arr[i]);
     if (isTop) {
       if (tempItems.top === arr[i].top) {
         result.push(arr[i].title);
@@ -43,7 +43,7 @@ function getEquationTitleFromArr(arr, isTop) {
       }
     }
   }
-  console.log(isTop, result)
+  console.log(isTop, result);
   return result;
 }
 function splitPlusMinus(arr, isMin = false) {
@@ -98,41 +98,44 @@ export function getEquation(arr) {
   // console.log("ini minus:",secondEqMinus,firstEqMinus)
   // console.log("ini plus:",secondEqPlus,firstEqPlus)
   // ======= MERGE SECTION =======
-  const EqX = firstEqPlus.EqX
+  const EqX = firstEqPlus.EqX;
   const EqConst = firstEqPlus.EqConst - firstEqMinus.EqConst;
 
-  const EqX2 = secondEqPlus.EqX
+  const EqX2 = secondEqPlus.EqX;
   const EqConst2 = secondEqPlus.EqConst - secondEqMinus.EqConst;
 
   return { EqX, EqConst, EqX2, EqConst2 };
 }
 
 export function getEquationPenjabaran(EqX, EqX2, EqConst, EqConst2) {
-  const constantaX = EqX*EqConst2 + EqX2*EqConst
-  const constanta = EqConst*EqConst2
+  const constantaX = EqX * EqConst2 + EqX2 * EqConst;
+  const constanta = EqConst * EqConst2;
 
-  const constantaXString = constantaX >= 0 ? `+ ${constantaX}` : `${constantaX}`
-  const constantaString = constanta >= 0 ? `+ ${constanta}` : `${constanta}`
-  return `${EqX*EqX2}X^2 ${constantaXString}X ${constantaString}`;
+  const constantaXString =
+    constantaX >= 0 ? `+ ${constantaX}` : `${constantaX}`;
+  const constantaString = constanta >= 0 ? `+ ${constanta}` : `${constanta}`;
+  return `${
+    EqX * EqX2 > 1 ? EqX * EqX2 : ""
+  }x^2 ${constantaXString}x ${constantaString}`;
 }
 
 export function getPenjabaran(Eqx, Eqx2, EqConst, EqConst2) {
   let penjabaran = "";
-  penjabaran += '( '
-  if(Eqx !== 0){
+  penjabaran += "( ";
+  if (Eqx !== 0) {
     penjabaran += `${Eqx}X`;
   }
-  if(EqConst !== 0){
-    penjabaran += EqConst > 0 ? `+ ${EqConst}` :`${EqConst}`;
+  if (EqConst !== 0) {
+    penjabaran += EqConst > 0 ? `+ ${EqConst}` : `${EqConst}`;
   }
-  penjabaran += ' ) ( '
+  penjabaran += " ) ( ";
 
-  if(Eqx2 !== 0){
+  if (Eqx2 !== 0) {
     penjabaran += `${Eqx2}X`;
   }
-  if(EqConst2 !== 0){
-    penjabaran += EqConst2 > 0 ? `+ ${EqConst2}` :`${EqConst2}`;
+  if (EqConst2 !== 0) {
+    penjabaran += EqConst2 > 0 ? `+ ${EqConst2}` : `${EqConst2}`;
   }
-    penjabaran += ' )'
+  penjabaran += " )";
   return penjabaran;
 }

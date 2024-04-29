@@ -40,14 +40,16 @@ const Navbar = () => {
             <Link href={"/simulasi"}>Simulasi</Link>
           </li>
           <li>
-            <Image
-              src={"/paper.svg"}
-              alt="paper"
-              width={24}
-              height={24}
-              className="invert"
-            />
-            Soal
+            <Link href={"/soal"} className="flex items-center">
+              <Image
+                src={"/paper.svg"}
+                alt="paper"
+                width={24}
+                height={24}
+                className="invert"
+              />
+              Soal
+            </Link>
           </li>
           <li>Pembuat</li>
         </ul>

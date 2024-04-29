@@ -30,6 +30,7 @@ const Playground = ({ isSnapToGrid }) => {
     step: 0,
   });
   const [kotak, setKotak] = useState({});
+
   const listKotak = {
     a: { title: "X ", left: 0, top: 0 },
     b: { title: "-1", left: 128 + 16, top: 0 },
@@ -110,58 +111,6 @@ const Playground = ({ isSnapToGrid }) => {
         BOX_TOP + NORMAL_BOX_WIDTH * 2
       );
     }
-
-    // if (step >= 10) {
-    //   const TEMP_LEFT = step >= 9 ? BIG_BOX_WIDTH * 2 : BOX_LEFT;
-    //   setKotak((prev) => ({
-    //     ...kotak,
-    //     [1]: { ...prev[1], left: TEMP_LEFT, top: BOX_TOP },
-    //     [2]: {
-    //       title: "X ",
-    //       left: TEMP_LEFT,
-    //       top: BOX_TOP + BIG_BOX_WIDTH,
-    //     },
-    //     [3]: {
-    //       ...prev[3],
-    //       left: TEMP_LEFT + BIG_BOX_WIDTH,
-    //       top: BOX_TOP,
-    //     },
-    //     [4]: {
-    //       ...prev[4],
-    //       left: TEMP_LEFT + BIG_BOX_WIDTH,
-    //       top: BOX_TOP + BIG_BOX_WIDTH,
-    //     },
-    //   }));
-    // }
-    // if (step == 7) {
-    //   setPreview(true);
-    // } else {
-    //   setPreview(false);
-    // }
-    // if (step >= 8) {
-    //   setPreviewPL(true);
-    // } else {
-    //   setPreviewPL(false);
-    // }
-    // if (step >= 9) {
-    //   setPreviewHasil((value) => ({
-    //     ...value,
-    //     display: true,
-    //     step: 1,
-    //   }));
-    //   if (step >= 10) {
-    //     setPreviewHasil((value) => ({
-    //       ...value,
-    //       step: step - 8,
-    //     }));
-    //   }
-    // } else {
-    //   setPreviewHasil((value) => ({
-    //     ...value,
-    //     display: false,
-    //     step: 0,
-    //   }));
-    // }
   };
 
   const addBox = (id, title, left, top) => {
@@ -364,7 +313,7 @@ const Playground = ({ isSnapToGrid }) => {
                         key={1}
                         className="bg-white rounded-lg px-3 py-1 ring-1 text-lg animate-popup"
                       >
-                        <Latex>$3x+6$</Latex>
+                        <Latex>$3x-6$</Latex>
                       </div>
                     </>
                   ) : (

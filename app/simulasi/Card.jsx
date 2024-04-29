@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 import Latex from "react-latex-next";
 
-const Card = ({ variant, title, penjelasan, rumus, id }) => {
+const Card = ({ variant, title, penjelasan, rumus, id, tipe }) => {
   const color =
     variant == "blue"
       ? "bg-blue-500"
@@ -53,7 +53,7 @@ const Card = ({ variant, title, penjelasan, rumus, id }) => {
         </p>
       </div>
 
-      <Link href={`/simulasi/${id}`}>
+      <Link href={`/${tipe == "soal" ? "soal" : "simulasi"}/${id}`}>
         <button
           className={`mb-4 mt-8 absolute left-1/2 -translate-x-1/2 bottom-0 px-8 py-2 bg-white ${textColor} rounded-full hover:scale-110 transition-all mx-auto font-semibold`}
         >
