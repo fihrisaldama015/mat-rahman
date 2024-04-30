@@ -10,6 +10,7 @@ import update from "immutability-helper";
 import { useEffect, useRef, useState } from "react";
 import { useDrop } from "react-dnd";
 import Latex from "react-latex-next";
+import DeleteButton from "@/app/simulasi/perkalian_suku/DeleteButton";
 
 const styles = {
   width: "50%",
@@ -204,34 +205,36 @@ const Playground = ({ isSnapToGrid }) => {
       accept: "box",
       drop(item, monitor) {
         const delta = monitor.getDifferenceFromInitialOffset();
+        if (item && monitor && delta){
 
-        let left = Math.round(item.left + delta.x);
-        let top = Math.round(item.top + delta.y);
-        if (isSnapToGrid) {
-          [left, top] = snapToGrid(left, top);
+          let left = Math.round(item.left + delta.x);
+          let top = Math.round(item.top + delta.y);
+          if (isSnapToGrid) {
+            [left, top] = snapToGrid(left, top);
+          }
+          // Get the bounding rectangle of the drop area
+          let dropAreaRect = null;
+          if (dropRef.current) {
+            dropAreaRect = dropRef.current.getBoundingClientRect();
+          } else {
+            // Handle the case when dropRef.current is null
+            // For example, you can return from the function
+            return;
+          }
+          // Check if the drop location is within the bounds of the drop area
+          if (
+            left < dropAreaRect.left ||
+            top < dropAreaRect.top ||
+            left > dropAreaRect.right ||
+            top > dropAreaRect.bottom
+          ) {
+            // If not, return without calling addBox
+            return;
+          }
+          moveBox(item.id, left, top);
+          return undefined;
         }
-        // Get the bounding rectangle of the drop area
-        let dropAreaRect = null;
-        if (dropRef.current) {
-          dropAreaRect = dropRef.current.getBoundingClientRect();
-        } else {
-          // Handle the case when dropRef.current is null
-          // For example, you can return from the function
-          return;
-        }
-        // Check if the drop location is within the bounds of the drop area
-        if (
-          left < dropAreaRect.left ||
-          top < dropAreaRect.top ||
-          left > dropAreaRect.right ||
-          top > dropAreaRect.bottom
-        ) {
-          // If not, return without calling addBox
-          return;
-        }
-        moveBox(item.id, left, top);
-        return undefined;
-      },
+      }
     }),
     [moveBox]
   );
@@ -244,6 +247,16 @@ const Playground = ({ isSnapToGrid }) => {
   useEffect(() => {
     setResult(getEquation(kotak));
   }, [kotak]);
+
+  const deleteBox = (id) => {
+    setKotak((prevKotak) => {
+      const newKotak = { ...prevKotak };
+      delete newKotak[id];
+      return newKotak;
+    });
+  };
+
+
 
   return (
     <div className="flex flex-col h-screen bg-gradient-to-t from-emerald-50 to-emerald-200">
@@ -311,38 +324,39 @@ const Playground = ({ isSnapToGrid }) => {
         </div>
 
         <div
-          ref={dropRef}
-          style={styles}
-          className="transition-all bg-white rounded-xl"
+            ref={dropRef}
+            style={styles}
+            className="transition-all bg-white rounded-xl"
         >
           <div className="absolute text-black transition-all duration-1000 top-4 right-4">
             <button
-              className="absolute py-3 px-10 top-0 right-0 bg-red-500 font-bold text-sm rounded-xl  text-white hover:bg-red-600 cursor-pointer transition-all disabled:bg-gray-400 disabled:cursor-not-allowed disabled:ring-0"
-              onClick={() => {
-                reset();
-              }}
+                className="absolute py-3 px-10 top-0 right-0 bg-red-500 font-bold text-sm rounded-xl  text-white hover:bg-red-600 cursor-pointer transition-all disabled:bg-gray-400 disabled:cursor-not-allowed disabled:ring-0"
+                onClick={() => {
+                  reset();
+                }}
             >
               Reset
             </button>
           </div>
+          <DeleteButton onDelete={deleteBox} />
           <div
-            className="absolute"
-            style={{
-              left: 0,
-              top: 0,
-            }}
+              className="absolute"
+              style={{
+                left: 0,
+                top: 0,
+              }}
           >
             <div className="relative">
-              <div className="animate-popup" style={{ display: "block" }}>
+              <div className="animate-popup" style={{display: "block"}}>
                 {/* VERTIKAL */}
                 <div className="absolute translate-y-24 translate-x-4 w-0.5 h-[22rem] bg-black"></div>
                 <div className="absolute translate-y-24 translate-x-8 h-[22rem] w-[4rem] flex items-center ">
                   <div
-                    className={`absolute -rotate-90 -translate-x-36 flex flex-row items-center justify-center gap-2 w-[22rem] h-[4rem] ${
-                      statusJawaban.type == "ukuran" &&
-                      !statusJawaban.isBenar &&
-                      "text-red-500 text-xl font-bold"
-                    }`}
+                      className={`absolute -rotate-90 -translate-x-36 flex flex-row items-center justify-center gap-2 w-[22rem] h-[4rem] ${
+                          statusJawaban.type == "ukuran" &&
+                          !statusJawaban.isBenar &&
+                          "text-red-500 text-xl font-bold"
+                      }`}
                   >
                     <Latex>$Lebar = $</Latex>
                     <Latex>$ {lebar}$</Latex>
@@ -352,11 +366,11 @@ const Playground = ({ isSnapToGrid }) => {
                 <div className="absolute translate-y-4 translate-x-24 w-[28rem] h-0.5 bg-black"></div>
                 <div className="absolute translate-y-8 translate-x-24 w-[28rem]">
                   <div
-                    className={`w-full flex flex-row gap-2 items-center justify-center ${
-                      statusJawaban.type == "ukuran" &&
-                      !statusJawaban.isBenar &&
-                      "text-red-500 text-xl font-bold"
-                    }`}
+                      className={`w-full flex flex-row gap-2 items-center justify-center ${
+                          statusJawaban.type == "ukuran" &&
+                          !statusJawaban.isBenar &&
+                          "text-red-500 text-xl font-bold"
+                      }`}
                   >
                     <Latex>$Panjang = $</Latex>
                     <Latex>$ {panjang}$</Latex>
@@ -366,22 +380,22 @@ const Playground = ({ isSnapToGrid }) => {
             </div>
           </div>
           {Object.keys(kotak).map((key) => (
-            <KotakSoal key={key} id={key} {...kotak[key]} />
+              <KotakSoal key={key} id={key} {...kotak[key]} />
           ))}
         </div>
         <div
-          className="absolute right-16 items-center h-full animate-popup"
-          style={{
-            display: true ? "flex" : "none",
-            // pointerEvents: isBentukBenar ? "auto" : "none",
-          }}
+            className="absolute right-16 items-center h-full animate-popup"
+            style={{
+              display: true ? "flex" : "none",
+              // pointerEvents: isBentukBenar ? "auto" : "none",
+            }}
         >
           <div className="flex flex-row items-start gap-4 p-6">
             <div className="flex flex-col items-start gap-4">
               <div
-                className=" flex-col items-center gap-4"
-                style={{
-                  display: true ? "flex" : "none",
+                  className=" flex-col items-center gap-4"
+                  style={{
+                    display: true ? "flex" : "none",
                 }}
               >
                 {/* <h1 className="text-2xl font-medium">.</h1> */}
