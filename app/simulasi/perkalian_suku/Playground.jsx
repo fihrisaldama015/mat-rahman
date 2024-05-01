@@ -35,6 +35,8 @@ const Playground = ({ isSnapToGrid }) => {
   });
   const [showEmoticon, setShowEmoticon] = useState(false);
   const [showTryAgain, setShowTryAgain] = useState(false);
+  const [isDrag , setIsDrag] = useState(false);
+  const [isLongPress, setLongPress] = useState(null);
   const listKotak = {
     a: { title: "X^2", left: 112 + 0, top: 128 },
     b: { title: "X", left: 112 + 128 + 16, top: 128 },
@@ -130,6 +132,32 @@ const Playground = ({ isSnapToGrid }) => {
     }
   }, [showEmoticon]);
 
+  const addMultipleBoxes = (number,title,left,top) => {
+    let newKotak = { ...kotak };
+    for(let i = 1; i <= number; i++){
+      const id = (Math.random()*i).toString(36).substring(7)+i;
+      newKotak[id] = {
+        title: title,
+        left: left+64 + 16,
+        top: top+128
+      };
+    }
+    setKotak(newKotak);
+  };
+
+  useEffect(() => {
+    // Long press is triggered
+    if (isLongPress !== null){
+      const prompt = window.prompt('Please enter how many block you want', 1);
+      const number = parseInt(prompt, 10);
+      if (prompt !== null && !isNaN(number) && number > 0) {
+        addMultipleBoxes(number,isLongPress.title,isLongPress.left,isLongPress.top);
+      }
+    }
+    setLongPress(null);
+  }, [isLongPress]);
+
+
   const tryAgain = () => {
     setShowEmoticon(false);
     if (statusJawaban.type == "bentuk") {
@@ -205,6 +233,7 @@ const Playground = ({ isSnapToGrid }) => {
       accept: "box",
       drop(item, monitor) {
         const delta = monitor.getDifferenceFromInitialOffset();
+        setIsDrag(false)
         if (item && monitor && delta){
 
           let left = Math.round(item.left + delta.x);
@@ -338,7 +367,7 @@ const Playground = ({ isSnapToGrid }) => {
               Reset
             </button>
           </div>
-          <DeleteButton onDelete={deleteBox} />
+          <DeleteButton onDelete={deleteBox} isDragging={isDrag} />
           <div
               className="absolute"
               style={{
@@ -380,7 +409,7 @@ const Playground = ({ isSnapToGrid }) => {
             </div>
           </div>
           {Object.keys(kotak).map((key) => (
-              <KotakSoal key={key} id={key} {...kotak[key]} />
+              <KotakSoal key={key} id={key} {...kotak[key]} setIsDrag={setIsDrag} />
           ))}
         </div>
         <div
@@ -545,6 +574,7 @@ const Playground = ({ isSnapToGrid }) => {
         <div className="w-[300px] mt-8 -translate-y-32 -translate-x-32">
           {Object.keys(listKotak).map((key) => (
             <LokasiKotak
+              setLongPress={setLongPress}
               key={key}
               id={key}
               {...listKotak[key]}
