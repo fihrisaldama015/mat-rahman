@@ -32,7 +32,6 @@ function getEquationTitleFromArr(arr, isTop) {
   let result = [];
   const tempItems = arr[0];
   for (let i = 0; i < arr.length; i++) {
-    console.log(arr[i]);
     if (isTop) {
       if (tempItems.top === arr[i].top) {
         result.push(arr[i].title);
@@ -43,7 +42,6 @@ function getEquationTitleFromArr(arr, isTop) {
       }
     }
   }
-  console.log(isTop, result);
   return result;
 }
 function splitPlusMinus(arr, isMin = false) {
