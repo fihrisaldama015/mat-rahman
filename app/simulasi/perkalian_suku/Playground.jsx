@@ -17,7 +17,13 @@ const styles = {
   height: "100%",
   position: "relative",
 };
-const LIST_SOAL = ["x^2 + 2x + 1", "x^2 + 3x + 2"];
+const LIST_SOAL = [
+  "x^2 + 2x + 1",
+  "x^2 + 3x + 2",
+  "x^2 + 5x + 6",
+  "x^2 + 8x + 12",
+  "x^2 + 10x + 25",
+];
 
 const Playground = ({ isSnapToGrid }) => {
   const [soal, setSoal] = useState(LIST_SOAL[0]);
@@ -35,7 +41,7 @@ const Playground = ({ isSnapToGrid }) => {
   });
   const [showEmoticon, setShowEmoticon] = useState(false);
   const [showTryAgain, setShowTryAgain] = useState(false);
-  const [isDrag , setIsDrag] = useState(false);
+  const [isDrag, setIsDrag] = useState(false);
   const [isLongPress, setLongPress] = useState(null);
   const listKotak = {
     a: { title: "X^2", left: 112 + 0, top: 128 },
@@ -132,14 +138,14 @@ const Playground = ({ isSnapToGrid }) => {
     }
   }, [showEmoticon]);
 
-  const addMultipleBoxes = (number,title,left,top) => {
+  const addMultipleBoxes = (number, title, left, top) => {
     let newKotak = { ...kotak };
-    for(let i = 1; i <= number; i++){
-      const id = (Math.random()*i).toString(36).substring(7)+i;
+    for (let i = 1; i <= number; i++) {
+      const id = (Math.random() * i).toString(36).substring(7) + i;
       newKotak[id] = {
         title: title,
-        left: left+64 + 16,
-        top: top+128
+        left: left + 64 + 16,
+        top: top + 128,
       };
     }
     setKotak(newKotak);
@@ -147,16 +153,20 @@ const Playground = ({ isSnapToGrid }) => {
 
   useEffect(() => {
     // Long press is triggered
-    if (isLongPress !== null){
-      const prompt = window.prompt('Please enter how many block you want', 1);
+    if (isLongPress !== null) {
+      const prompt = window.prompt("Please enter how many block you want", 1);
       const number = parseInt(prompt, 10);
       if (prompt !== null && !isNaN(number) && number > 0) {
-        addMultipleBoxes(number,isLongPress.title,isLongPress.left,isLongPress.top);
+        addMultipleBoxes(
+          number,
+          isLongPress.title,
+          isLongPress.left,
+          isLongPress.top
+        );
       }
     }
     setLongPress(null);
   }, [isLongPress]);
-
 
   const tryAgain = () => {
     setShowEmoticon(false);
@@ -233,9 +243,8 @@ const Playground = ({ isSnapToGrid }) => {
       accept: "box",
       drop(item, monitor) {
         const delta = monitor.getDifferenceFromInitialOffset();
-        setIsDrag(false)
-        if (item && monitor && delta){
-
+        setIsDrag(false);
+        if (item && monitor && delta) {
           let left = Math.round(item.left + delta.x);
           let top = Math.round(item.top + delta.y);
           if (isSnapToGrid) {
@@ -263,7 +272,7 @@ const Playground = ({ isSnapToGrid }) => {
           moveBox(item.id, left, top);
           return undefined;
         }
-      }
+      },
     }),
     [moveBox]
   );
@@ -284,8 +293,6 @@ const Playground = ({ isSnapToGrid }) => {
       return newKotak;
     });
   };
-
-
 
   return (
     <div className="flex flex-col h-screen bg-gradient-to-t from-emerald-50 to-emerald-200">
@@ -353,39 +360,39 @@ const Playground = ({ isSnapToGrid }) => {
         </div>
 
         <div
-            ref={dropRef}
-            style={styles}
-            className="transition-all bg-white rounded-xl"
+          ref={dropRef}
+          style={styles}
+          className="transition-all bg-white rounded-xl"
         >
           <div className="absolute text-black transition-all duration-1000 top-4 right-4">
             <button
-                className="absolute py-3 px-10 top-0 right-0 bg-red-500 font-bold text-sm rounded-xl  text-white hover:bg-red-600 cursor-pointer transition-all disabled:bg-gray-400 disabled:cursor-not-allowed disabled:ring-0"
-                onClick={() => {
-                  reset();
-                }}
+              className="absolute py-3 px-10 top-0 right-0 bg-red-500 font-bold text-sm rounded-xl  text-white hover:bg-red-600 cursor-pointer transition-all disabled:bg-gray-400 disabled:cursor-not-allowed disabled:ring-0"
+              onClick={() => {
+                reset();
+              }}
             >
               Reset
             </button>
           </div>
           <DeleteButton onDelete={deleteBox} isDragging={isDrag} />
           <div
-              className="absolute"
-              style={{
-                left: 0,
-                top: 0,
-              }}
+            className="absolute"
+            style={{
+              left: 0,
+              top: 0,
+            }}
           >
             <div className="relative">
-              <div className="animate-popup" style={{display: "block"}}>
+              <div className="animate-popup" style={{ display: "block" }}>
                 {/* VERTIKAL */}
                 <div className="absolute translate-y-24 translate-x-4 w-0.5 h-[22rem] bg-black"></div>
                 <div className="absolute translate-y-24 translate-x-8 h-[22rem] w-[4rem] flex items-center ">
                   <div
-                      className={`absolute -rotate-90 -translate-x-36 flex flex-row items-center justify-center gap-2 w-[22rem] h-[4rem] ${
-                          statusJawaban.type == "ukuran" &&
-                          !statusJawaban.isBenar &&
-                          "text-red-500 text-xl font-bold"
-                      }`}
+                    className={`absolute -rotate-90 -translate-x-36 flex flex-row items-center justify-center gap-2 w-[22rem] h-[4rem] ${
+                      statusJawaban.type == "ukuran" &&
+                      !statusJawaban.isBenar &&
+                      "text-red-500 text-xl font-bold"
+                    }`}
                   >
                     <Latex>$Lebar = $</Latex>
                     <Latex>$ {lebar}$</Latex>
@@ -395,11 +402,11 @@ const Playground = ({ isSnapToGrid }) => {
                 <div className="absolute translate-y-4 translate-x-24 w-[28rem] h-0.5 bg-black"></div>
                 <div className="absolute translate-y-8 translate-x-24 w-[28rem]">
                   <div
-                      className={`w-full flex flex-row gap-2 items-center justify-center ${
-                          statusJawaban.type == "ukuran" &&
-                          !statusJawaban.isBenar &&
-                          "text-red-500 text-xl font-bold"
-                      }`}
+                    className={`w-full flex flex-row gap-2 items-center justify-center ${
+                      statusJawaban.type == "ukuran" &&
+                      !statusJawaban.isBenar &&
+                      "text-red-500 text-xl font-bold"
+                    }`}
                   >
                     <Latex>$Panjang = $</Latex>
                     <Latex>$ {panjang}$</Latex>
@@ -409,22 +416,27 @@ const Playground = ({ isSnapToGrid }) => {
             </div>
           </div>
           {Object.keys(kotak).map((key) => (
-              <KotakSoal key={key} id={key} {...kotak[key]} setIsDrag={setIsDrag} />
+            <KotakSoal
+              key={key}
+              id={key}
+              {...kotak[key]}
+              setIsDrag={setIsDrag}
+            />
           ))}
         </div>
         <div
-            className="absolute right-16 items-center h-full animate-popup"
-            style={{
-              display: true ? "flex" : "none",
-              // pointerEvents: isBentukBenar ? "auto" : "none",
-            }}
+          className="absolute right-16 items-center h-full animate-popup"
+          style={{
+            display: true ? "flex" : "none",
+            // pointerEvents: isBentukBenar ? "auto" : "none",
+          }}
         >
           <div className="flex flex-row items-start gap-4 p-6">
             <div className="flex flex-col items-start gap-4">
               <div
-                  className=" flex-col items-center gap-4"
-                  style={{
-                    display: true ? "flex" : "none",
+                className=" flex-col items-center gap-4"
+                style={{
+                  display: true ? "flex" : "none",
                 }}
               >
                 {/* <h1 className="text-2xl font-medium">.</h1> */}
