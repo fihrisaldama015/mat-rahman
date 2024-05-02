@@ -1,4 +1,4 @@
-t status"use client";
+"use client";
 import KotakSoal from "@/app/components/KotakSoal";
 import LokasiKotak from "@/app/components/LokasiKotak";
 import { snapToGrid } from "@/app/components/snapToGrid";
