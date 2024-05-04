@@ -18,9 +18,9 @@ const styles = {
   position: "relative",
 };
 const LIST_SOAL = [
-  "x^2 + 2x + 1",
   "x^2 + 3x + 2",
   "x^2 + 5x + 6",
+  "x^2 + 7x + 10",
   "x^2 + 8x + 12",
   "x^2 + 10x + 25",
 ];

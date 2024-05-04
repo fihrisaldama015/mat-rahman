@@ -17,20 +17,22 @@ const KotakSoal = (props) => {
   const [isDragging, setIsDragging] = useState(false);
 
   const [collected, drag, preview] = useDrag(
-      () => ({
-        type: "box",
-        item: { id, left, top, title },
-        collect: (monitor) => {
-          return {
-            isDragging: monitor.isDragging(),
-          };
-        },
-      }),
-      [id, left, top, title]
+    () => ({
+      type: "box",
+      item: { id, left, top, title },
+      collect: (monitor) => {
+        return {
+          isDragging: monitor.isDragging(),
+        };
+      },
+    }),
+    [id, left, top, title]
   );
 
   useEffect(() => {
-    setIsDrag(isDragging);
+    if (setIsDrag !== undefined) {
+      setIsDrag(isDragging);
+    }
   }, [isDragging]);
 
   useEffect(() => {
@@ -38,13 +40,13 @@ const KotakSoal = (props) => {
   }, [collected]);
 
   return (
-      <div
-          ref={drag}
-          style={getStyles(left, top, collected.isDragging)}
-          className="transition-all duration-1000"
-      >
-        <Kotak title={title} />
-      </div>
+    <div
+      ref={drag}
+      style={getStyles(left, top, collected.isDragging)}
+      className="transition-all duration-1000"
+    >
+      <Kotak title={title} />
+    </div>
   );
 };
 
