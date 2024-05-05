@@ -447,10 +447,10 @@ const Playground = ({ isSnapToGrid }) => {
                     <input
                       type="text"
                       value={panjang}
-                      className={`absolute left-0 top-0 px-3 py-1 z-10 w-24 bg-transparent focus:outline-none ${
+                      className={`absolute left-0 top-0 px-3 py-1 z-10 bg-transparent focus:outline-none ${
                         panjang.length > 0
                           ? "text-transparent w-fit tracking-widest text-2xl"
-                          : "w-8"
+                          : "text-black w-24"
                       }`}
                       onChange={(e) => setPanjang(e.target.value)}
                     />
@@ -466,7 +466,7 @@ const Playground = ({ isSnapToGrid }) => {
                       className={`absolute left-0 top-0 pl-3 pr-3 py-1 z-10 w-24 bg-transparent focus:outline-none ${
                         lebar.length > 0
                           ? "text-transparent w-fit tracking-widest text-2xl"
-                          : "text-black w-8"
+                          : "text-black w-24"
                       }`}
                       onChange={(e) => setLebar(e.target.value)}
                     />

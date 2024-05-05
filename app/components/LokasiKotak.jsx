@@ -18,7 +18,7 @@ const LokasiKotak = (props) => {
 
   const handleMouseDown = () => {
     setLongPressTimer(setTimeout(() => {
-      console.log("Long press is triggered");
+      console.log("Long press is triggered",{title,left, top});
       setLongPress({title,left, top});
     }, 800)); // 800ms = 0.8
   };

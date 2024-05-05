@@ -32,12 +32,33 @@ const Navbar = () => {
     <>
       <nav>
         <a href="/">
-          <div>logo</div>
+          <Image src={'/logo.png'} alt="logo" width={200} height={200} className="w-6 h-auto object-contain"/>
         </a>
         <ul className="menu">
-          <li>Tujuan Pembelajaran</li>
           <li>
-            <Link href={"/simulasi"}>Simulasi</Link>
+            <Link href={"/tujuan_pembelajaran"} className="flex items-center">
+              <Image
+                src={"/paper.svg"}
+                alt="paper"
+                width={24}
+                height={24}
+                className="invert"
+              />
+              Tujuan Pembelajaran
+            </Link>
+          </li>
+          <li>
+            <Link href={"/simulasi"} className="flex items-center">
+              {" "}
+              <Image
+                src={"/paper.svg"}
+                alt="paper"
+                width={24}
+                height={24}
+                className="invert"
+              />
+              Simulasi
+            </Link>
           </li>
           <li>
             <Link href={"/soal"} className="flex items-center">
@@ -51,7 +72,18 @@ const Navbar = () => {
               Soal
             </Link>
           </li>
-          <li>Pembuat</li>
+          <li>
+            <Link href={"/pembuat"} className="flex items-center">
+              <Image
+                src={"/paper.svg"}
+                alt="paper"
+                width={24}
+                height={24}
+                className="invert"
+              />
+              Pembuat
+            </Link>
+          </li>
         </ul>
         <div className="profile">
           <div

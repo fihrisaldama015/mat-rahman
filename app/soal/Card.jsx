@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 import Latex from "react-latex-next";
 
-const Card = ({ variant, title, penjelasan, rumus, id, tipe }) => {
+const Card = ({ variant, title, penjelasan, rumus, id, tipe, img }) => {
   const color =
     variant == "blue"
       ? "bg-blue-500"
@@ -37,10 +37,10 @@ const Card = ({ variant, title, penjelasan, rumus, id, tipe }) => {
   return (
     <div className={`relative pb-16 flex flex-col w-80 rounded-xl ${color}`}>
       <Image
-        src={"/bg_dashboard.jpg"}
+        src={img}
         alt="card"
-        width={200}
-        height={200}
+        width={1900}
+        height={900}
         className="w-full h-40 rounded-t-xl"
       />
 

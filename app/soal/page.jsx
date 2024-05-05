@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "../simulasi/Card";
+import Card from "./Card";
 
 const SimulasiPage = () => {
   return (
@@ -20,23 +20,8 @@ const SimulasiPage = () => {
 
       <div className="flex justify-center gap-16 flex-wrap p-16">
         <Card
-          id="operasi_hitung"
-          variant={"blue"}
-          tipe="soal"
-          title="Operasi Hitung Aljabar"
-          penjelasan="Menentukan hasil operasi penjumlahan dan pengurangan aljabar dengan menggunakan blok aljabar"
-        />
-        {/* menentukan hasil operasi aljabar dengan menggunakan blok aljabar */}
-        <Card
-          id="perkalian_dua_suku"
-          variant={"purple"}
-          tipe="soal"
-          title="Perkalian Dua Suku"
-          penjelasan="Menentukan hasil perkalian suku dua dan suku dua menggunakan blok Aljabar"
-        />
-        {/* menentukan hasil perkalian suku dua dan suku dua */}
-        <Card
           variant={"green"}
+          img={"/soal_1.png"}
           title="Faktorisasi Persamaan Kuadrat"
           penjelasan={`Persamaan Kuadrat :`}
           tipe="soal"
@@ -46,6 +31,7 @@ const SimulasiPage = () => {
         {/* a=1, b & c positif */}
         <Card
           variant={"red"}
+           img={"/soal_2.png"}
           title="Faktorisasi Persamaan Kuadrat"
           penjelasan={`Persamaan Kuadrat :`}
           tipe="soal"
@@ -57,6 +43,7 @@ const SimulasiPage = () => {
         {/* a=1, b & c positif/negatif */}
         <Card
           variant={"yellow"}
+           img={"/soal_3.png"}
           tipe="soal"
           title="Faktorisasi Persamaan Kuadrat"
           penjelasan={`Persamaan Kuadrat :`}
@@ -66,6 +53,7 @@ const SimulasiPage = () => {
         {/* a>1, b & c positif */}
         <Card
           variant={"cyan"}
+           img={"/soal_4.png"}
           title="Faktorisasi Persamaan Kuadrat"
           penjelasan={`Persamaan Kuadrat :`}
           tipe="soal"

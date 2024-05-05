@@ -28,7 +28,7 @@ const DeleteButton = ({ onDelete, isDragging }) => {
     >
       <button
         className={`absolute ${
-          isHover ? "py-6 px-16 bg-red-300" : "py-3 px-10 bg-red-500"
+          isHover ? "py-12 px-16 bg-red-300" : "py-6 px-10 bg-red-500"
         } bottom-0 right-0 font-bold text-sm rounded-xl  text-white hover:bg-red-600 cursor-pointer transition-all disabled:bg-gray-400 disabled:cursor-not-allowed disabled:ring-0`}
       >
         Delete

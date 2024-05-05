@@ -4,7 +4,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import Playground from "./Playground";
 import { useState } from "react";
 
-const Operasi_Hitung_Page = () => {
+const Faktorisasi_persamaan_kuadrat_2 = () => {
   const [snapToGridAfterDrop, setSnapToGridAfterDrop] = useState(true);
   return (
     <DndProvider backend={HTML5Backend}>
@@ -13,4 +13,4 @@ const Operasi_Hitung_Page = () => {
   );
 };
 
-export default Operasi_Hitung_Page;
+export default Faktorisasi_persamaan_kuadrat_2;

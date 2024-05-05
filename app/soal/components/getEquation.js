@@ -70,8 +70,8 @@ export function getEquation(arr) {
   // ======= PLUS SECTION =======
   const findTopPlus = plusArr.sort((a, b) => a.top - b.top); // ascending sort using top component
   const findLeftPlus = plusArr.sort((a, b) => a.left - b.left); // ascending sort using left component
-  // console.log("ini Top :",findTopPlus)
-  // console.log("ini left :",findLeftPlus)
+  console.log("ini Top :",findTopPlus)
+  console.log("ini left :",findLeftPlus)
   const firstEqPlus = boxtitleToEquation(
     getEquationTitleFromArr(findTopPlus, true),
     true
@@ -80,11 +80,13 @@ export function getEquation(arr) {
     getEquationTitleFromArr(findLeftPlus, false),
     false
   );
+ 
 
   // ======= MINUS SECTION =======
   const findTopMinus = minArr.sort((a, b) => a.top - b.top); // ascending sort using top component
   const findLeftMinus = minArr.sort((a, b) => a.left - b.left); // ascending sort using left component
-
+  console.log("ini Top MINUS :",findTopMinus)
+  console.log("ini left MINUS:",findLeftMinus)
   const firstEqMinus = boxtitleToEquation(
     getEquationTitleFromArr(findTopMinus, true),
     true
@@ -93,14 +95,17 @@ export function getEquation(arr) {
     getEquationTitleFromArr(findLeftMinus, false),
     false
   );
-  // console.log("ini minus:",secondEqMinus,firstEqMinus)
-  // console.log("ini plus:",secondEqPlus,firstEqPlus)
+  console.log('ini perhitungan first minus 1 : ', getEquationTitleFromArr(findTopMinus, true))
+  console.log('ini perhitungan second minus 1 : ', getEquationTitleFromArr(findLeftMinus, false))
+  console.log("ini minus:",secondEqMinus,firstEqMinus)
+  console.log("ini plus:",secondEqPlus,firstEqPlus)
   // ======= MERGE SECTION =======
   const EqX = firstEqPlus.EqX;
   const EqConst = firstEqPlus.EqConst - firstEqMinus.EqConst;
 
   const EqX2 = secondEqPlus.EqX;
-  const EqConst2 = secondEqPlus.EqConst - secondEqMinus.EqConst;
+  const isThereIsMinusInMostLeft = findLeftPlus.length>0 && findLeftMinus.length>0 ?findLeftPlus[0].left == findLeftMinus[0].left:false
+  const EqConst2 = isThereIsMinusInMostLeft ? secondEqPlus.EqConst - secondEqMinus.EqConst : secondEqPlus.EqConst;
 
   return { EqX, EqConst, EqX2, EqConst2 };
 }
@@ -108,10 +113,13 @@ export function getEquation(arr) {
 export function getEquationPenjabaran(EqX, EqX2, EqConst, EqConst2) {
   const constantaX = EqX * EqConst2 + EqX2 * EqConst;
   const constanta = EqConst * EqConst2;
+  console.log('constantaX ', constantaX)
+  console.log('constanta ', constanta)
+
 
   const constantaXString =
-    constantaX >= 0 ? `+ ${constantaX}` : `${constantaX}`;
-  const constantaString = constanta >= 0 ? `+ ${constanta}` : `${constanta}`;
+    constantaX >= 0 ? `+ ${constantaX}` : constantaX == -1 ? '- ': `${constantaX.toString().split('').join(' ')}`;
+  const constantaString = constanta >= 0 ? `+ ${constanta}` : `${constanta.toString().split('').join(' ')}`;
   return `${
     EqX * EqX2 > 1 ? EqX * EqX2 : ""
   }x^2 ${constantaXString}x ${constantaString}`;

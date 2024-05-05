@@ -18,11 +18,11 @@ const styles = {
   position: "relative",
 };
 const LIST_SOAL = [
-  "x^2 + 3x + 2",
-  "x^2 + 5x + 6",
-  "x^2 + 7x + 10",
-  "x^2 + 8x + 12",
-  "x^2 + 10x + 25",
+  "x^2 - x - 2",
+  "x^2 - 8x + 7",
+  "x^2 - 6x + 9",
+  "x^2 - 7x + 10",
+  "x^2 - 12x + 36",
 ];
 
 const Playground = ({ isSnapToGrid }) => {
@@ -83,12 +83,14 @@ const Playground = ({ isSnapToGrid }) => {
   };
 
   const checkPerhitungan = () => {
-    const panjangString = `${result.EqX > 1 ? result.EqX : ""}x+${
-      result.EqConst
+    const panjangString = `${result.EqX > 1 ? result.EqX : ""}x${
+      result.EqConst > 0 ? `+${result.EqConst}` : result.EqConst
     }`;
-    const lebarString = `${result.EqX2 > 1 ? result.EqX2 : ""}x+${
-      result.EqConst2
-    }`;
+    const lebarString = `${result.EqX2 > 1 ? result.EqX2 : ""}x${
+      result.EqConst2 > 0 ? `+${result.EqConst2}` : result.EqConst2
+    }`; 
+    console.log(panjangString)
+    console.log(lebarString)
     const himpunanPenyelesaian1 = `${
       result.EqConst > 0 ? "-" + result.EqConst : result.EqConst.toString().substring(1)
     }`+ `${result.EqX>1 ? `/${result.EqX}`:''}`;

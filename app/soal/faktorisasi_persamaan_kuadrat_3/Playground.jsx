@@ -18,11 +18,10 @@ const styles = {
   position: "relative",
 };
 const LIST_SOAL = [
-  "x^2 + 3x + 2",
-  "x^2 + 5x + 6",
-  "x^2 + 7x + 10",
-  "x^2 + 8x + 12",
-  "x^2 + 10x + 25",
+  "3x^2 + 7x + 2",
+  "2x^2 + 6x + 4",
+  "3x^2 + 8x + 4",
+  "4x^2 + 2x + 1",
 ];
 
 const Playground = ({ isSnapToGrid }) => {
@@ -142,17 +141,20 @@ const Playground = ({ isSnapToGrid }) => {
     let newKotak = { ...kotak };
     for (let i = 1; i <= number; i++) {
       const id = (Math.random() * i).toString(36).substring(7) + i;
+      console.log(title)
       newKotak[id] = {
-        title: title,
+        title: `${title}`,
         left: left + 64 + 16,
         top: top + 128,
       };
     }
+    console.log(newKotak)
     setKotak(newKotak);
   };
 
   useEffect(() => {
     // Long press is triggered
+    console.log('trigered')
     if (isLongPress !== null) {
       const prompt = window.prompt("Please enter how many block you want", 1);
       const number = parseInt(prompt, 10);
@@ -165,7 +167,7 @@ const Playground = ({ isSnapToGrid }) => {
         );
       }
     }
-    setLongPress(null);
+    // setLongPress(null);
   }, [isLongPress]);
 
   const tryAgain = () => {
@@ -218,6 +220,7 @@ const Playground = ({ isSnapToGrid }) => {
   };
 
   const addBox = (id, title, left, top) => {
+    console.log('add trigered')
     setKotak(
       update(kotak, {
         [id]: {
