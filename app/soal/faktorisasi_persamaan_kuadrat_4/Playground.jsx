@@ -89,14 +89,20 @@ const Playground = ({ isSnapToGrid }) => {
     const lebarString = `${result.EqX2 > 1 ? result.EqX2 : ""}x${
       result.EqConst2 > 0 ? `+${result.EqConst2}` : result.EqConst2
     }`;
-    console.log(panjangString)
-    console.log(lebarString)
-    const himpunanPenyelesaian1 = `${
-      result.EqConst > 0 ? "-" + result.EqConst : result.EqConst.toString().substring(1)
-    }`+ `${result.EqX>1 ? `/${result.EqX}`:''}`;
-    const himpunanPenyelesaian2 = `${
-      result.EqConst2 > 0 ? "-" + result.EqConst2 : result.EqConst2.toString().substring(1)
-    }`+ `${result.EqX2>1 ? `/${result.EqX2}`:''}`;
+    console.log(panjangString);
+    console.log(lebarString);
+    const himpunanPenyelesaian1 =
+      `${
+        result.EqConst > 0
+          ? "-" + result.EqConst
+          : result.EqConst.toString().substring(1)
+      }` + `${result.EqX > 1 ? `/${result.EqX}` : ""}`;
+    const himpunanPenyelesaian2 =
+      `${
+        result.EqConst2 > 0
+          ? "-" + result.EqConst2
+          : result.EqConst2.toString().substring(1)
+      }` + `${result.EqX2 > 1 ? `/${result.EqX2}` : ""}`;
     console.log(himpunanPenyelesaian1);
     console.log(himpunanPenyelesaian2);
     if (
@@ -155,7 +161,7 @@ const Playground = ({ isSnapToGrid }) => {
 
   useEffect(() => {
     // Long press is triggered
-    if (isLongPress !== null) {
+    if (isLongPress !== null && typeof window !== "undefined") {
       const prompt = window.prompt("Please enter how many block you want", 1);
       const number = parseInt(prompt, 10);
       if (prompt !== null && !isNaN(number) && number > 0) {

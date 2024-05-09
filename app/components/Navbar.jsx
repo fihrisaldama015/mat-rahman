@@ -1,12 +1,15 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [openTujuan, setOpenTujuan] = useState(false);
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [theme, setTheme] = useState("light");
+  const router = useRouter();
 
   const themeToggle = () => {
     if (theme == "light") {
@@ -23,6 +26,11 @@ const Navbar = () => {
     themeToggle();
   };
 
+  const openLink = (link) => {
+    router.push(link);
+    setOpenTujuan(false);
+  };
+
   // useEffect(() => {
   //   if (theme !== "") {
   //     themeToggle();
@@ -31,12 +39,22 @@ const Navbar = () => {
   return (
     <>
       <nav>
-        <a href="/">
-          <Image src={'/logo.png'} alt="logo" width={200} height={200} className="w-6 h-auto object-contain"/>
+        <a href="/" className="flex gap-3 items-center">
+          <Image
+            src={"/logo.png"}
+            alt="logo"
+            width={200}
+            height={200}
+            className="w-6 h-auto object-contain"
+          />
+          Logo
         </a>
         <ul className="menu">
-          <li>
-            <Link href={"/tujuan_pembelajaran"} className="flex items-center">
+          <li className="relative">
+            <div
+              className="flex items-center"
+              onClick={() => setOpenTujuan((value) => !value)}
+            >
               <Image
                 src={"/paper.svg"}
                 alt="paper"
@@ -45,7 +63,31 @@ const Navbar = () => {
                 className="invert"
               />
               Tujuan Pembelajaran
-            </Link>
+            </div>
+            <div
+              className={`absolute top-12 z-10 w-36 bg-black rounded-xl ${
+                openTujuan ? "" : "hilang"
+              }`}
+            >
+              <div
+                onClick={() => openLink("/tujuan_pembelajaran/lkpd")}
+                className="py-2 px-4 hover:bg-white/20 rounded-lg transition-all flex items-center"
+              >
+                LKPD
+              </div>
+              <div
+                onClick={() => openLink("/tujuan_pembelajaran/modul")}
+                className="py-2 px-4 hover:bg-white/20 rounded-lg transition-all flex items-center"
+              >
+                Modul Ajar
+              </div>
+              <div
+                onClick={() => openLink("/tujuan_pembelajaran/ppt")}
+                className="py-2 px-4 hover:bg-white/20 rounded-lg transition-all flex items-center"
+              >
+                PPT
+              </div>
+            </div>
           </li>
           <li>
             <Link href={"/simulasi"} className="flex items-center">

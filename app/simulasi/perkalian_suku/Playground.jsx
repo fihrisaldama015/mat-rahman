@@ -153,7 +153,7 @@ const Playground = ({ isSnapToGrid }) => {
 
   useEffect(() => {
     // Long press is triggered
-    if (isLongPress !== null) {
+    if (isLongPress !== null && typeof window !== "undefined") {
       const prompt = window.prompt("Please enter how many block you want", 1);
       const number = parseInt(prompt, 10);
       if (prompt !== null && !isNaN(number) && number > 0) {

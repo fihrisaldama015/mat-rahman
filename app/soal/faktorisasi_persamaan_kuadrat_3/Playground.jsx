@@ -88,12 +88,18 @@ const Playground = ({ isSnapToGrid }) => {
     const lebarString = `${result.EqX2 > 1 ? result.EqX2 : ""}x+${
       result.EqConst2
     }`;
-    const himpunanPenyelesaian1 = `${
-      result.EqConst > 0 ? "-" + result.EqConst : result.EqConst.toString().substring(1)
-    }`+ `${result.EqX>1 ? `/${result.EqX}`:''}`;
-    const himpunanPenyelesaian2 = `${
-      result.EqConst2 > 0 ? "-" + result.EqConst2 : result.EqConst2.toString().substring(1)
-    }`+ `${result.EqX2>1 ? `/${result.EqX2}`:''}`;
+    const himpunanPenyelesaian1 =
+      `${
+        result.EqConst > 0
+          ? "-" + result.EqConst
+          : result.EqConst.toString().substring(1)
+      }` + `${result.EqX > 1 ? `/${result.EqX}` : ""}`;
+    const himpunanPenyelesaian2 =
+      `${
+        result.EqConst2 > 0
+          ? "-" + result.EqConst2
+          : result.EqConst2.toString().substring(1)
+      }` + `${result.EqX2 > 1 ? `/${result.EqX2}` : ""}`;
     console.log(himpunanPenyelesaian1);
     console.log(himpunanPenyelesaian2);
     if (
@@ -141,21 +147,21 @@ const Playground = ({ isSnapToGrid }) => {
     let newKotak = { ...kotak };
     for (let i = 1; i <= number; i++) {
       const id = (Math.random() * i).toString(36).substring(7) + i;
-      console.log(title)
+      console.log(title);
       newKotak[id] = {
         title: `${title}`,
         left: left + 64 + 16,
         top: top + 128,
       };
     }
-    console.log(newKotak)
+    console.log(newKotak);
     setKotak(newKotak);
   };
 
   useEffect(() => {
     // Long press is triggered
-    console.log('trigered')
-    if (isLongPress !== null) {
+    console.log("trigered");
+    if (isLongPress !== null && typeof window !== "undefined") {
       const prompt = window.prompt("Please enter how many block you want", 1);
       const number = parseInt(prompt, 10);
       if (prompt !== null && !isNaN(number) && number > 0) {
@@ -220,7 +226,7 @@ const Playground = ({ isSnapToGrid }) => {
   };
 
   const addBox = (id, title, left, top) => {
-    console.log('add trigered')
+    console.log("add trigered");
     setKotak(
       update(kotak, {
         [id]: {

@@ -23,6 +23,7 @@ const SimulasiPage = () => {
           id="operasi_hitung"
           variant={"blue"}
           title="Operasi Hitung Aljabar"
+          img={"/simulasi1.png"}
           penjelasan="Menentukan hasil operasi penjumlahan dan pengurangan aljabar dengan menggunakan blok aljabar"
         />
         {/* menentukan hasil operasi aljabar dengan menggunakan blok aljabar */}
@@ -30,12 +31,14 @@ const SimulasiPage = () => {
           id="perkalian_dua_suku"
           variant={"purple"}
           title="Perkalian Dua Suku"
+          img={"/simulasi1.png"}
           penjelasan="Menentukan hasil perkalian suku dua dan suku dua menggunakan blok Aljabar"
         />
         {/* menentukan hasil perkalian suku dua dan suku dua */}
         <Card
           variant={"green"}
           title="Faktorisasi Persamaan Kuadrat"
+          img={"/simulasi1.png"}
           penjelasan={`Persamaan Kuadrat :`}
           rumus={"Ax^2 + Bx + C$ dengan syarat $A = 1$, $B & C$ positif"}
           id="faktorisasi_persamaan_kuadrat_1"
@@ -44,6 +47,7 @@ const SimulasiPage = () => {
         <Card
           variant={"red"}
           title="Faktorisasi Persamaan Kuadrat"
+          img={"/simulasi1.png"}
           penjelasan={`Persamaan Kuadrat :`}
           rumus={
             "Ax^2 + Bx + C$ dengan syarat $A = 1$, $B & C$ positif atau negatif"
@@ -54,6 +58,7 @@ const SimulasiPage = () => {
         <Card
           variant={"yellow"}
           title="Faktorisasi Persamaan Kuadrat"
+          img={"/simulasi1.png"}
           penjelasan={`Persamaan Kuadrat :`}
           rumus={"Ax^2 + Bx + C$ dengan syarat $A > 1$, $B & C$ positif"}
           id="faktorisasi_persamaan_kuadrat_3"
@@ -62,6 +67,7 @@ const SimulasiPage = () => {
         <Card
           variant={"cyan"}
           title="Faktorisasi Persamaan Kuadrat"
+          img={"/simulasi1.png"}
           penjelasan={`Persamaan Kuadrat :`}
           rumus={
             "Ax^2 + Bx + C$ dengan syarat $A > 1$, $B & C$ positif atau negatif"
