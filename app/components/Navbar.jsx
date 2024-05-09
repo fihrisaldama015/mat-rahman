@@ -129,7 +129,7 @@ const Navbar = () => {
         </ul>
         <div className="profile">
           <div
-            className={`dropdown ${isDropdownOpen ? "" : "hilang"}`}
+            className={`dropdown z-10 ${isDropdownOpen ? "" : "hilang"}`}
             id="dropdown"
           >
             <Link href="/masuk" className="dropdown-menu">
