@@ -16,7 +16,7 @@ export default function Home() {
         />
         <div className="absolute flex flex-col gap-6 justify-center items-center w-screen h-full top-0 text-white">
           <h1 className="text-6xl tracking-wider font-extrabold drop-shadow-xl">
-            Taman Bermain Matematika
+            Website Block Aljabar
           </h1>
           <Link href={"/simulasi"} className="no-underline text-white">
             <button className="ring-2 text-xl font-medium ring-blue-400 rounded-2xl px-6 py-3 bg-black/50 hover:bg-blue-400 transition-all backdrop-blur-md">
@@ -30,20 +30,20 @@ export default function Home() {
           variant="red"
           href="/tujuan"
           title="Tujuan Pembelajaran"
-          image="/paper.svg"
+          image="/icon_tujuan.png"
         />
         <Card
           variant="green"
           href="/simulasi"
           title="Simulasi"
-          image="/paper.svg"
+          image="/icon_simulasi.png"
         />
         <Card variant="yellow" href="/soal" title="Soal" image="/paper.svg" />
         <Card
           variant="blue"
           href="/pembuat"
           title="Pembuat"
-          image="/paper.svg"
+          image="/icon_user.png"
         />
       </div>
     </>

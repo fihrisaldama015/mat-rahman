@@ -14,9 +14,11 @@ const Navbar = () => {
   const themeToggle = () => {
     if (theme == "light") {
       document.documentElement.setAttribute("data-theme", "dark");
+      document.querySelector("html").classList.add("dark");
       // languageIcon.setAttribute("class", "invers");
     } else {
       document.documentElement.setAttribute("data-theme", "light");
+      document.querySelector("html").classList.remove("dark");
       // languageIcon.setAttribute("class", "");
     }
   };
@@ -52,11 +54,11 @@ const Navbar = () => {
         <ul className="menu">
           <li className="relative">
             <div
-              className="flex items-center"
+              className="flex items-center gap-1 font-semibold"
               onClick={() => setOpenTujuan((value) => !value)}
             >
               <Image
-                src={"/paper.svg"}
+                src={"/icon_tujuan.png"}
                 alt="paper"
                 width={24}
                 height={24}
@@ -65,7 +67,7 @@ const Navbar = () => {
               Tujuan Pembelajaran
             </div>
             <div
-              className={`absolute top-12 z-10 w-36 bg-black rounded-xl ${
+              className={`absolute top-12 z-10 w-36 bg-black rounded-xl  ${
                 openTujuan ? "" : "hilang"
               }`}
             >
@@ -90,10 +92,13 @@ const Navbar = () => {
             </div>
           </li>
           <li>
-            <Link href={"/simulasi"} className="flex items-center">
+            <Link
+              href={"/simulasi"}
+              className="flex items-center gap-1 font-semibold"
+            >
               {" "}
               <Image
-                src={"/paper.svg"}
+                src={"/icon_simulasi.png"}
                 alt="paper"
                 width={24}
                 height={24}
@@ -103,7 +108,10 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link href={"/soal"} className="flex items-center">
+            <Link
+              href={"/soal"}
+              className="flex items-center gap-1 font-semibold"
+            >
               <Image
                 src={"/paper.svg"}
                 alt="paper"
@@ -115,9 +123,12 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link href={"/pembuat"} className="flex items-center">
+            <Link
+              href={"/pembuat"}
+              className="flex items-center gap-1 font-semibold"
+            >
               <Image
-                src={"/paper.svg"}
+                src={"/icon_user.png"}
                 alt="paper"
                 width={24}
                 height={24}

@@ -35,7 +35,9 @@ const Card = ({ variant, title, penjelasan, rumus, id, tipe, img }) => {
       ? "text-cyan-500"
       : "";
   return (
-    <div className={`relative pb-16 flex flex-col w-80 rounded-xl ${color}`}>
+    <div
+      className={`relative pb-16 flex flex-col w-80 rounded-xl  ring-1 ring-slate-400 ${color}`}
+    >
       <Image
         src={img}
         alt="card"

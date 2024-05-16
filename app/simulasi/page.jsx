@@ -7,7 +7,7 @@ const SimulasiPage = () => {
       <div className="w-full h-72 bg-[url('/bg_dashboard.jpg')]">
         <div className="flex h-full items-center justify-center flex-col gap-4 bg-black/50">
           <img
-            src={"/paper.svg"}
+            src={"/icon_simulasi.png"}
             width={128}
             alt=""
             className="rounded-full invert"
