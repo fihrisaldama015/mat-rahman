@@ -53,8 +53,12 @@ const LoginPage = () => {
 
   return (
     <div>
-      <div class="hero-banner">
-        <h1>Masuk</h1>
+      <div className="w-full h-72 bg-[url('/bg_dashboard.jpg')]">
+        <div className="flex h-full items-center justify-center flex-col gap-4 bg-black/50">
+          <div className="text-white">
+            <h1 className="text-5xl font-semibold drop-shadow-xl">Masuk</h1>
+          </div>
+        </div>
       </div>
 
       <div className="py-8 flex items-center justify-center">

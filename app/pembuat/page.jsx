@@ -27,10 +27,17 @@ const Pembuat = () => {
             className="w-8 object-contain"
           />
         </a>
-        <p className="text-slate-700 tracking-wide max-w-md">
+        <p className="text-slate-700 tracking-wide max-w-xl">
           A Mathematics student with a passion for math, Lorem ipsum dolor sit
           amet consectetur adipisicing elit. Distinctio, nemo. Nostrum,
-          accusamus nisi dolorem quia veniam consequatur.
+          accusamus nisi dolorem quia veniam consequatur. Lorem ipsum dolor sit
+          amet, consectetur adipisicing elit. Aut, accusantium? Rerum quis, quo
+          eius unde dolor minima nostrum repudiandae placeat nesciunt
+          recusandae, mollitia excepturi nobis minus nemo. Explicabo, ex vitae!
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, ut
+          et. Molestias possimus a explicabo architecto incidunt, officiis,
+          aliquid quam iure qui atque adipisci ad velit, consectetur tempora
+          fugit beatae!
         </p>
       </div>
       <div>

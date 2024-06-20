@@ -16,7 +16,7 @@ export default function Home() {
         />
         <div className="absolute flex flex-col gap-6 justify-center items-center w-screen h-full top-0 text-white">
           <h1 className="text-6xl tracking-wider font-extrabold drop-shadow-xl">
-            Website Block Aljabar
+            Website Blok Aljabar
           </h1>
           <Link href={"/simulasi"} className="no-underline text-white">
             <button className="ring-2 text-xl font-medium ring-blue-400 rounded-2xl px-6 py-3 bg-black/50 hover:bg-blue-400 transition-all backdrop-blur-md">

@@ -49,7 +49,6 @@ const Navbar = () => {
             height={200}
             className="w-6 h-auto object-contain"
           />
-          Logo
         </a>
         <ul className="menu">
           <li className="relative">

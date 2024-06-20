@@ -20,7 +20,9 @@ body {
   margin: 0;
 }
 html{
-  --bg: #fefefe;
+  --bg: #fff;
+  --background-start: #cffafe;
+  --background-end: #06b6d4;
   --color:#222;
   --grey: #ddd;
 }
@@ -28,9 +30,12 @@ html[data-theme=dark] {
   --bg: #000d;
   --color: #fefefe;
   --grey: #333;
+  --background-start: #111;
+  --background-end: #333;
 }
 body {
-  background-color: var(--bg);
+  /* background-color: var(--bg); */
+  background:linear-gradient(60deg, var(--background-start) 0%, var(--background-end) 100%);
 }
 
 .hero {
@@ -195,7 +200,8 @@ li {
   align-items: center;
   background: url('/background-signup.jpg') no-repeat center center/cover;
   width: 100%;
-  min-height: 30vh;
+  backdrop-filter: blur(5px);
+  min-height: 26rem;
   color: white;
 }
 
