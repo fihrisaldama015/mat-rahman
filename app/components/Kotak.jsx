@@ -14,7 +14,7 @@ const Kotak = ({ title }) => {
   if (title == "X^2") {
     width = 4;
     height = 4;
-    backgroundColor = "bg-blue-600";
+    backgroundColor = "bg-blue-800";
   } else if (title == "X") {
     width = 2;
     height = 4;

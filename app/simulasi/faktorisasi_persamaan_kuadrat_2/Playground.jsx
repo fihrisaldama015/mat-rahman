@@ -7,6 +7,14 @@ import { useDrop } from "react-dnd";
 import { snapToGrid } from "@/app/components/snapToGrid";
 import Latex from "react-latex-next";
 import useScreenSize from "@/app/utils/useScreenSize";
+import {
+  SimulasiSebelumnya,
+  SimulasiSelanjutnya,
+} from "@/app/components/NavigasiSoal";
+import {
+  ButtonNextStep,
+  ButtonPrevStep,
+} from "@/app/components/ButtonSimulasi";
 
 const styles = {
   width: "100%",
@@ -247,6 +255,8 @@ const Playground = ({ isSnapToGrid }) => {
         </div>
 
         <div ref={dropRef} style={styles} className="transition-all">
+          <SimulasiSelanjutnya babSekarang={4} />
+          <SimulasiSebelumnya babSekarang={4} />
           <div
             className="absolute text-black transition-all duration-1000"
             style={{
@@ -440,8 +450,7 @@ const Playground = ({ isSnapToGrid }) => {
             />
           ))}
         </div>
-        <button
-          className="absolute bg-red-500 ring-1 ring-red-600 rounded-xl py-6 px-12 left-16 top-8 text-white hover:bg-red-600 cursor-pointer transition-all disabled:bg-gray-400 disabled:cursor-not-allowed disabled:ring-0"
+        <ButtonPrevStep
           onClick={() => {
             setStep((prev) => {
               kondisiPerStep(prev - 1);
@@ -449,11 +458,8 @@ const Playground = ({ isSnapToGrid }) => {
             });
           }}
           disabled={step == 0}
-        >
-          Prev
-        </button>
-        <button
-          className="absolute bg-green-500 ring-1 ring-green-600 rounded-xl py-6 px-12 right-16 top-8 text-white hover:bg-green-600 cursor-pointer transition-all disabled:bg-gray-400 disabled:cursor-not-allowed disabled:ring-0"
+        />
+        <ButtonNextStep
           onClick={() => {
             setStep((prev) => {
               kondisiPerStep(prev + 1);
@@ -464,9 +470,7 @@ const Playground = ({ isSnapToGrid }) => {
             });
           }}
           disabled={step == TOTAL_STEP}
-        >
-          Next
-        </button>
+        />
       </div>
     </div>
   );
