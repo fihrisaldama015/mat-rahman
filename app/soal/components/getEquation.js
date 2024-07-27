@@ -108,7 +108,10 @@ export function getEquation(arr) {
   console.log("ini plus:", secondEqPlus, firstEqPlus);
   // ======= MERGE SECTION =======
   const EqX = firstEqPlus.EqX;
-  const EqConst = firstEqPlus.EqConst - firstEqMinus.EqConst;
+  const EqConst =
+    firstEqPlus.EqConst >= 1 && firstEqMinus.EqConst >= 1
+      ? firstEqPlus.EqConst
+      : firstEqPlus.EqConst - firstEqMinus.EqConst;
 
   const EqX2 = secondEqPlus.EqX;
   const isThereIsMinusInMostLeft =
@@ -133,7 +136,7 @@ export function getEquationPenjabaran(EqX, EqX2, EqConst, EqConst2) {
       ? `+ ${constantaX}`
       : constantaX == -1
       ? "- "
-      : `${constantaX.toString().split("").join(" ")}`;
+      : `- ${constantaX.toString().split("-").join("")}`;
   const constantaString =
     constanta >= 0
       ? `+ ${constanta}`

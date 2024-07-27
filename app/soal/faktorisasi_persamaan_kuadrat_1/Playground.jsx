@@ -178,7 +178,7 @@ const Playground = ({ isSnapToGrid }) => {
   const tryAgain = () => {
     setShowEmoticon(false);
     if (statusJawaban.type == "bentuk") {
-      setKotak({});
+      // setKotak({});
     } else if (statusJawaban.type == "ukuran") {
       setPanjang("");
       setLebar("");

@@ -21,7 +21,7 @@ const LIST_SOAL = [
   "3x^2 + 5x - 2",
   "2x^2 - 3x - 5",
   "3x^2 - 8x - 3",
-  "3x^2 + 4x - 2",
+  "3x^2 - 14x + 8",
   "2x^2 - 3x + 1",
 ];
 
@@ -50,6 +50,7 @@ const Playground = ({ isSnapToGrid }) => {
     d: { title: "-X", left: 112 + -64 - 16, top: 128 },
     e: { title: "-1", left: 112 + 128 + 64 + 64 + 48, top: 128 },
     f: { title: "X ", left: 112 + 128 + 64 + 64 + 64 + 64, top: 128 },
+    g: { title: "-X ", left: 112 + 128 + 64 * 4 + 128 + 16, top: 128 },
   };
   let audioHappy =
     typeof Audio !== "undefined" ? new Audio("/audio/yay.mp3") : undefined;
@@ -179,7 +180,7 @@ const Playground = ({ isSnapToGrid }) => {
   const tryAgain = () => {
     setShowEmoticon(false);
     if (statusJawaban.type == "bentuk") {
-      setKotak({});
+      // setKotak({});
     } else if (statusJawaban.type == "ukuran") {
       setPanjang("");
       setLebar("");
@@ -206,6 +207,16 @@ const Playground = ({ isSnapToGrid }) => {
     } else {
       setNoSoal((value) => value + 1);
       setSoal(LIST_SOAL[noSoal]);
+      reset();
+    }
+  };
+
+  const soalSebelumnya = () => {
+    if (noSoal == 1) {
+      alert("Ini soal pertama");
+    } else {
+      setNoSoal((value) => value - 1);
+      setSoal(LIST_SOAL[noSoal - 2]);
       reset();
     }
   };
@@ -352,7 +363,23 @@ const Playground = ({ isSnapToGrid }) => {
           <div className="mr-24 tracking-widest flex flex-col items-center gap-6">
             <p>No</p>
             <h1 className="text-4xl">
+              <span>
+                <button
+                  className="text-black font-bold text-4xl mr-1"
+                  onClick={() => soalSebelumnya()}
+                >
+                  {"<"}
+                </button>
+              </span>
               {noSoal} / {LIST_SOAL.length}
+              <span>
+                <button
+                  className="text-black font-bold text-4xl ml-1"
+                  onClick={() => soalSelanjutnya()}
+                >
+                  {">"}
+                </button>
+              </span>
             </h1>
           </div>
           <div className="flex flex-col gap-3 items-center">
